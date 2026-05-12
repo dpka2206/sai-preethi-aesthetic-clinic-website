@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
   Menu, X, Microscope, Syringe, Baby, MapPin, Phone, Mail,
@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import heroImg from "@/assets/hero-doctor.jpg";
 import aboutImg from "@/assets/about-doctor.jpg";
+import { services, conditions } from "@/lib/clinic-data";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -62,6 +63,7 @@ function Nav() {
     ["Services", "#services"],
     ["About", "#about"],
     ["Treatments", "#treatments"],
+    ["Articles", "/articles"],
     ["FAQs", "#faq"],
     ["Contact", "#contact"],
   ];
@@ -80,9 +82,11 @@ function Nav() {
         </a>
         <nav className="hidden items-center gap-9 md:flex" aria-label="Main">
           {links.map(([l, h]) => (
-            <a key={l} href={h} className="text-sm text-foreground/80 transition hover:text-primary">
-              {l}
-            </a>
+            h.startsWith("/") ? (
+              <Link key={l} to={h} className="text-sm text-foreground/80 transition hover:text-primary">{l}</Link>
+            ) : (
+              <a key={l} href={h} className="text-sm text-foreground/80 transition hover:text-primary">{l}</a>
+            )
           ))}
         </nav>
         <a
@@ -103,14 +107,11 @@ function Nav() {
         <div className="border-t border-border bg-background md:hidden">
           <div className="flex flex-col gap-1 px-6 py-4">
             {links.map(([l, h]) => (
-              <a
-                key={l}
-                href={h}
-                onClick={() => setOpen(false)}
-                className="rounded px-2 py-3 text-sm text-foreground hover:bg-muted"
-              >
-                {l}
-              </a>
+              h.startsWith("/") ? (
+                <Link key={l} to={h} onClick={() => setOpen(false)} className="rounded px-2 py-3 text-sm text-foreground hover:bg-muted">{l}</Link>
+              ) : (
+                <a key={l} href={h} onClick={() => setOpen(false)} className="rounded px-2 py-3 text-sm text-foreground hover:bg-muted">{l}</a>
+              )
             ))}
             <a
               href="#contact"
