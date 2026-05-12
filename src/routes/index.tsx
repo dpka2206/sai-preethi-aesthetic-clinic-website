@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
   Menu, X, Microscope, Syringe, Baby, MapPin, Phone, Mail,
@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import heroImg from "@/assets/hero-doctor.jpg";
 import aboutImg from "@/assets/about-doctor.jpg";
+import { services, conditions } from "@/lib/clinic-data";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -62,6 +63,7 @@ function Nav() {
     ["Services", "#services"],
     ["About", "#about"],
     ["Treatments", "#treatments"],
+    ["Articles", "/articles"],
     ["FAQs", "#faq"],
     ["Contact", "#contact"],
   ];
@@ -80,9 +82,11 @@ function Nav() {
         </a>
         <nav className="hidden items-center gap-9 md:flex" aria-label="Main">
           {links.map(([l, h]) => (
-            <a key={l} href={h} className="text-sm text-foreground/80 transition hover:text-primary">
-              {l}
-            </a>
+            h.startsWith("/") ? (
+              <Link key={l} to={h} className="text-sm text-foreground/80 transition hover:text-primary">{l}</Link>
+            ) : (
+              <a key={l} href={h} className="text-sm text-foreground/80 transition hover:text-primary">{l}</a>
+            )
           ))}
         </nav>
         <a
@@ -103,14 +107,11 @@ function Nav() {
         <div className="border-t border-border bg-background md:hidden">
           <div className="flex flex-col gap-1 px-6 py-4">
             {links.map(([l, h]) => (
-              <a
-                key={l}
-                href={h}
-                onClick={() => setOpen(false)}
-                className="rounded px-2 py-3 text-sm text-foreground hover:bg-muted"
-              >
-                {l}
-              </a>
+              h.startsWith("/") ? (
+                <Link key={l} to={h} onClick={() => setOpen(false)} className="rounded px-2 py-3 text-sm text-foreground hover:bg-muted">{l}</Link>
+              ) : (
+                <a key={l} href={h} onClick={() => setOpen(false)} className="rounded px-2 py-3 text-sm text-foreground hover:bg-muted">{l}</a>
+              )
             ))}
             <a
               href="#contact"
@@ -232,55 +233,68 @@ function SectionHead({ label, title, sub }: { label: string; title: string; sub?
   );
 }
 
-/* ---------- Why ---------- */
+/* ---------- Why (4 cards arranged around centered title) ---------- */
 function Why() {
   const ref = useReveal();
   const items = [
-    { Icon: Microscope, t: "Diagnosis-First Approach", d: "Every treatment plan starts with accurate diagnosis using dermoscopy, biopsy, and genetic testing." },
-    { Icon: Syringe, t: "Advanced Treatment Access", d: "Biologics, exosome therapy, HIFU, fractional CO₂ lasers, JAK inhibitors, and more." },
-    { Icon: Baby, t: "All Ages Welcome", d: "From newborns with skin conditions to adults seeking rejuvenation — specialised care at every life stage." },
-    { Icon: MapPin, t: "Hyderabad-Based, Globally Trained", d: "Advanced dermatological care calibrated for Indian skin tones (Fitzpatrick IV–VI)." },
+    { n: "01", Icon: Microscope, t: "Diagnosis-First Approach", d: "Every treatment plan starts with accurate diagnosis using dermoscopy, biopsy, and genetic testing." },
+    { n: "02", Icon: Syringe, t: "Advanced Treatment Access", d: "Biologics, exosome therapy, HIFU, fractional CO₂ lasers, JAK inhibitors, and more." },
+    { n: "03", Icon: Baby, t: "All Ages Welcome", d: "From newborns with skin conditions to adults seeking rejuvenation — specialised care at every life stage." },
+    { n: "04", Icon: MapPin, t: "Hyderabad-Based, Globally Trained", d: "Advanced dermatological care calibrated for Indian skin tones (Fitzpatrick IV–VI)." },
   ];
+  const Card = ({ item }: { item: typeof items[number] }) => {
+    const { Icon, t, d, n } = item;
+    return (
+      <div className="reveal w-full max-w-sm rounded-xl border border-border bg-card p-6 soft-shadow transition hover:-translate-y-1">
+        <div className="flex items-start justify-between">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent text-primary">
+            <Icon size={18} />
+          </div>
+          <span className="text-xs tracking-widest text-muted-foreground">{n} <span className="opacity-50">/ 04</span></span>
+        </div>
+        <h3 className="mt-5 font-serif text-lg text-foreground">{t}</h3>
+        <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">{d}</p>
+      </div>
+    );
+  };
   return (
     <section ref={ref} className="px-6 py-24 lg:px-10 lg:py-32">
       <div className="mx-auto max-w-7xl">
-        <SectionHead label="Why patients trust us" title="Precision. Science. Care." />
-        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {items.map(({ Icon, t, d }, i) => (
-            <div
-              key={t}
-              className="reveal rounded-xl border border-border bg-card p-7 transition hover:-translate-y-1 hover:soft-shadow"
-              style={{ animationDelay: `${i * 80}ms` }}
-            >
-              <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-accent text-primary">
-                <Icon size={20} />
+        <p className="text-center text-xs uppercase tracking-[0.25em] text-primary reveal">Why patients trust us</p>
+        {/* Desktop: circular layout with center title */}
+        <div className="relative mt-12 hidden lg:block">
+          <div className="grid grid-cols-3 items-center gap-8">
+            <div className="flex justify-end"><Card item={items[0]} /></div>
+            <div className="text-center reveal">
+              <div className="relative mx-auto flex h-72 w-72 items-center justify-center rounded-full border border-dashed border-primary/40">
+                <div className="absolute inset-6 rounded-full border border-dashed border-sage/50" />
+                <div className="relative">
+                  <h2 className="font-serif text-5xl leading-tight text-foreground">Why<br/>us?</h2>
+                </div>
               </div>
-              <h3 className="mt-5 font-serif text-xl text-foreground">{t}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{d}</p>
             </div>
-          ))}
+            <div><Card item={items[2]} /></div>
+            <div className="flex justify-end"><Card item={items[1]} /></div>
+            <div />
+            <div><Card item={items[3]} /></div>
+          </div>
+        </div>
+        {/* Mobile / tablet stack */}
+        <div className="mt-10 grid gap-5 md:grid-cols-2 lg:hidden">
+          <h2 className="col-span-full text-center font-serif text-4xl text-foreground reveal">Why us?</h2>
+          {items.map((it) => <Card key={it.n} item={it} />)}
         </div>
       </div>
     </section>
   );
 }
 
-/* ---------- Services ---------- */
-const services = [
-  ["Paediatric Dermatology", "Expert skin care for children from newborns to teens. Eczema, birthmarks, alopecia, rare genodermatoses.", "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=900&q=80"],
-  ["Hair Regrowth & Restoration", "PRP, GFC, Exosome Therapy, PDRN, Scalp Threads. Diagnosis-first approach for all hair loss types.", "https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=900&q=80"],
-  ["Acne & Acne Scar Treatment", "Chemical peels, fractional CO₂ laser, microneedling with RF, CROSS technique, subcision.", "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=900&q=80"],
-  ["Facial & Body Pigmentation", "Melasma, sun damage, PIH, periorbital darkening. Q-switched & picosecond laser, glutathione IV.", "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=900&q=80"],
-  ["Anti-Ageing & Skin Rejuvenation", "Botox, dermal fillers, Profhilo, HIFU, PRP facial, skin boosters, mesotherapy.", "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=900&q=80"],
-  ["Hyperhidrosis Treatment", "Botulinum toxin injections for excessive sweating. 6–12 month results for underarms, palms, soles.", "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=900&q=80"],
-  ["Clinical Dermatology", "Psoriasis (biologics, phototherapy), vitiligo (JAK inhibitors, excimer laser), skin infections.", "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=900&q=80"],
-  ["Autoimmune Skin Conditions", "Lupus, pemphigus, lichen planus, alopecia areata, chronic urticaria. Biologics & IVIG.", "https://images.unsplash.com/photo-1579154204601-01588f351e67?w=900&q=80"],
-  ["Laser Hair Reduction", "6–8 sessions, 80–90% reduction, calibrated for Indian skin tones (Fitzpatrick IV–VI).", "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=900&q=80"],
-  ["Contouring Procedures", "Double chin reduction with fat-dissolving injections and HIFU. Non-surgical face & body sculpting.", "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=900&q=80"],
-  ["Dermatological Procedures", "Mole removal, skin tag removal, cyst excision, lipoma removal, biopsies — with histopathology.", "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=900&q=80"],
-];
+/* ---------- Services preview (6 only, masonry, overlay labels) ---------- */
 function Services() {
   const ref = useReveal();
+  const featured = services.slice(0, 6);
+  // alternating tall/short heights for a masonry feel
+  const heights = ["aspect-[4/5]", "aspect-[4/3]", "aspect-[4/3]", "aspect-[4/3]", "aspect-[4/5]", "aspect-[4/3]"];
   return (
     <section id="services" ref={ref} className="bg-cream px-6 py-24 lg:px-10 lg:py-32">
       <div className="mx-auto max-w-7xl">
@@ -289,14 +303,15 @@ function Services() {
           title="Comprehensive Dermatology & Aesthetic Services"
           sub="From your child's first rash to advanced skin rejuvenation — we provide evidence-based care across the full spectrum of dermatology."
         />
-        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {services.map(([name, desc, img], i) => (
-            <article
+        <div className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {featured.map(([name, , img], i) => (
+            <Link
+              to="/services"
               key={name}
-              className="reveal group overflow-hidden rounded-xl border border-border bg-card transition hover:-translate-y-1 hover:soft-shadow"
+              className="reveal group relative overflow-hidden rounded-xl bg-muted soft-shadow"
               style={{ animationDelay: `${(i % 6) * 60}ms` }}
             >
-              <div className="aspect-[4/3] overflow-hidden bg-muted">
+              <div className={`${heights[i]} w-full overflow-hidden`}>
                 <img
                   src={img}
                   alt={name}
@@ -304,15 +319,23 @@ function Services() {
                   className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 />
               </div>
-              <div className="p-6">
-                <h3 className="font-serif text-xl text-foreground">{name}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{desc}</p>
-                <a href="#contact" className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary">
-                  Learn More <ArrowRight size={14} />
-                </a>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/0 to-black/0" />
+              <div className="absolute left-5 top-5 rounded-md bg-card/90 px-3 py-1.5 text-xs font-medium text-foreground backdrop-blur">
+                {name}
               </div>
-            </article>
+              <div className="absolute bottom-5 right-5 flex h-9 w-9 items-center justify-center rounded-full bg-card text-primary transition group-hover:bg-primary group-hover:text-primary-foreground">
+                <ArrowRight size={15} />
+              </div>
+            </Link>
           ))}
+        </div>
+        <div className="mt-12 flex justify-center reveal">
+          <Link
+            to="/services"
+            className="inline-flex items-center gap-2 rounded-md border border-foreground/20 px-7 py-3.5 text-sm font-medium text-foreground transition hover:border-foreground hover:bg-foreground hover:text-background"
+          >
+            Explore More Services <ArrowRight size={15} />
+          </Link>
         </div>
       </div>
     </section>
@@ -432,13 +455,6 @@ function Treatments() {
 }
 
 /* ---------- Conditions ---------- */
-const conditions = [
-  "Acne","Acne Scars","Eczema","Psoriasis","Vitiligo","Melasma","Hair Loss","Alopecia Areata",
-  "Fungal Infections","Warts","Hyperhidrosis","Rosacea","Seborrheic Dermatitis","Pigmentation",
-  "Birthmarks","Skin Tags","Moles","Cysts","Lupus","Pemphigus","Lichen Planus","Paediatric Eczema",
-  "Urticaria","Periorbital Darkening","Underarm Darkening","Body Pigmentation","Genetic Skin Disorders",
-  "Scalp Disorders","PCOS-related Skin Issues","Ageing Skin","Sun Damage","Post-inflammatory Hyperpigmentation",
-];
 function Conditions() {
   const ref = useReveal();
   return (
