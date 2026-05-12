@@ -233,33 +233,56 @@ function SectionHead({ label, title, sub }: { label: string; title: string; sub?
   );
 }
 
-/* ---------- Why ---------- */
+/* ---------- Why (4 cards arranged around centered title) ---------- */
 function Why() {
   const ref = useReveal();
   const items = [
-    { Icon: Microscope, t: "Diagnosis-First Approach", d: "Every treatment plan starts with accurate diagnosis using dermoscopy, biopsy, and genetic testing." },
-    { Icon: Syringe, t: "Advanced Treatment Access", d: "Biologics, exosome therapy, HIFU, fractional CO₂ lasers, JAK inhibitors, and more." },
-    { Icon: Baby, t: "All Ages Welcome", d: "From newborns with skin conditions to adults seeking rejuvenation — specialised care at every life stage." },
-    { Icon: MapPin, t: "Hyderabad-Based, Globally Trained", d: "Advanced dermatological care calibrated for Indian skin tones (Fitzpatrick IV–VI)." },
+    { n: "01", Icon: Microscope, t: "Diagnosis-First Approach", d: "Every treatment plan starts with accurate diagnosis using dermoscopy, biopsy, and genetic testing." },
+    { n: "02", Icon: Syringe, t: "Advanced Treatment Access", d: "Biologics, exosome therapy, HIFU, fractional CO₂ lasers, JAK inhibitors, and more." },
+    { n: "03", Icon: Baby, t: "All Ages Welcome", d: "From newborns with skin conditions to adults seeking rejuvenation — specialised care at every life stage." },
+    { n: "04", Icon: MapPin, t: "Hyderabad-Based, Globally Trained", d: "Advanced dermatological care calibrated for Indian skin tones (Fitzpatrick IV–VI)." },
   ];
+  const Card = ({ item }: { item: typeof items[number] }) => {
+    const { Icon, t, d, n } = item;
+    return (
+      <div className="reveal w-full max-w-sm rounded-xl border border-border bg-card p-6 soft-shadow transition hover:-translate-y-1">
+        <div className="flex items-start justify-between">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-accent text-primary">
+            <Icon size={18} />
+          </div>
+          <span className="text-xs tracking-widest text-muted-foreground">{n} <span className="opacity-50">/ 04</span></span>
+        </div>
+        <h3 className="mt-5 font-serif text-lg text-foreground">{t}</h3>
+        <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">{d}</p>
+      </div>
+    );
+  };
   return (
     <section ref={ref} className="px-6 py-24 lg:px-10 lg:py-32">
       <div className="mx-auto max-w-7xl">
-        <SectionHead label="Why patients trust us" title="Precision. Science. Care." />
-        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {items.map(({ Icon, t, d }, i) => (
-            <div
-              key={t}
-              className="reveal rounded-xl border border-border bg-card p-7 transition hover:-translate-y-1 hover:soft-shadow"
-              style={{ animationDelay: `${i * 80}ms` }}
-            >
-              <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-accent text-primary">
-                <Icon size={20} />
+        <p className="text-center text-xs uppercase tracking-[0.25em] text-primary reveal">Why patients trust us</p>
+        {/* Desktop: circular layout with center title */}
+        <div className="relative mt-12 hidden lg:block">
+          <div className="grid grid-cols-3 items-center gap-8">
+            <div className="flex justify-end"><Card item={items[0]} /></div>
+            <div className="text-center reveal">
+              <div className="relative mx-auto flex h-72 w-72 items-center justify-center rounded-full border border-dashed border-primary/40">
+                <div className="absolute inset-6 rounded-full border border-dashed border-sage/50" />
+                <div className="relative">
+                  <h2 className="font-serif text-5xl leading-tight text-foreground">Why<br/>us?</h2>
+                </div>
               </div>
-              <h3 className="mt-5 font-serif text-xl text-foreground">{t}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{d}</p>
             </div>
-          ))}
+            <div><Card item={items[2]} /></div>
+            <div className="flex justify-end"><Card item={items[1]} /></div>
+            <div />
+            <div><Card item={items[3]} /></div>
+          </div>
+        </div>
+        {/* Mobile / tablet stack */}
+        <div className="mt-10 grid gap-5 md:grid-cols-2 lg:hidden">
+          <h2 className="col-span-full text-center font-serif text-4xl text-foreground reveal">Why us?</h2>
+          {items.map((it) => <Card key={it.n} item={it} />)}
         </div>
       </div>
     </section>
