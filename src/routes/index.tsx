@@ -266,22 +266,12 @@ function Why() {
   );
 }
 
-/* ---------- Services ---------- */
-const services = [
-  ["Paediatric Dermatology", "Expert skin care for children from newborns to teens. Eczema, birthmarks, alopecia, rare genodermatoses.", "https://images.unsplash.com/photo-1516627145497-ae6968895b74?w=900&q=80"],
-  ["Hair Regrowth & Restoration", "PRP, GFC, Exosome Therapy, PDRN, Scalp Threads. Diagnosis-first approach for all hair loss types.", "https://images.unsplash.com/photo-1605497788044-5a32c7078486?w=900&q=80"],
-  ["Acne & Acne Scar Treatment", "Chemical peels, fractional CO₂ laser, microneedling with RF, CROSS technique, subcision.", "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=900&q=80"],
-  ["Facial & Body Pigmentation", "Melasma, sun damage, PIH, periorbital darkening. Q-switched & picosecond laser, glutathione IV.", "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=900&q=80"],
-  ["Anti-Ageing & Skin Rejuvenation", "Botox, dermal fillers, Profhilo, HIFU, PRP facial, skin boosters, mesotherapy.", "https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=900&q=80"],
-  ["Hyperhidrosis Treatment", "Botulinum toxin injections for excessive sweating. 6–12 month results for underarms, palms, soles.", "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=900&q=80"],
-  ["Clinical Dermatology", "Psoriasis (biologics, phototherapy), vitiligo (JAK inhibitors, excimer laser), skin infections.", "https://images.unsplash.com/photo-1551601651-2a8555f1a136?w=900&q=80"],
-  ["Autoimmune Skin Conditions", "Lupus, pemphigus, lichen planus, alopecia areata, chronic urticaria. Biologics & IVIG.", "https://images.unsplash.com/photo-1579154204601-01588f351e67?w=900&q=80"],
-  ["Laser Hair Reduction", "6–8 sessions, 80–90% reduction, calibrated for Indian skin tones (Fitzpatrick IV–VI).", "https://images.unsplash.com/photo-1616394584738-fc6e612e71b9?w=900&q=80"],
-  ["Contouring Procedures", "Double chin reduction with fat-dissolving injections and HIFU. Non-surgical face & body sculpting.", "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?w=900&q=80"],
-  ["Dermatological Procedures", "Mole removal, skin tag removal, cyst excision, lipoma removal, biopsies — with histopathology.", "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=900&q=80"],
-];
+/* ---------- Services preview (6 only, masonry, overlay labels) ---------- */
 function Services() {
   const ref = useReveal();
+  const featured = services.slice(0, 6);
+  // alternating tall/short heights for a masonry feel
+  const heights = ["aspect-[4/5]", "aspect-[4/3]", "aspect-[4/3]", "aspect-[4/3]", "aspect-[4/5]", "aspect-[4/3]"];
   return (
     <section id="services" ref={ref} className="bg-cream px-6 py-24 lg:px-10 lg:py-32">
       <div className="mx-auto max-w-7xl">
@@ -290,14 +280,15 @@ function Services() {
           title="Comprehensive Dermatology & Aesthetic Services"
           sub="From your child's first rash to advanced skin rejuvenation — we provide evidence-based care across the full spectrum of dermatology."
         />
-        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {services.map(([name, desc, img], i) => (
-            <article
+        <div className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {featured.map(([name, , img], i) => (
+            <Link
+              to="/services"
               key={name}
-              className="reveal group overflow-hidden rounded-xl border border-border bg-card transition hover:-translate-y-1 hover:soft-shadow"
+              className="reveal group relative overflow-hidden rounded-xl bg-muted soft-shadow"
               style={{ animationDelay: `${(i % 6) * 60}ms` }}
             >
-              <div className="aspect-[4/3] overflow-hidden bg-muted">
+              <div className={`${heights[i]} w-full overflow-hidden`}>
                 <img
                   src={img}
                   alt={name}
@@ -305,15 +296,23 @@ function Services() {
                   className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                 />
               </div>
-              <div className="p-6">
-                <h3 className="font-serif text-xl text-foreground">{name}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{desc}</p>
-                <a href="#contact" className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary">
-                  Learn More <ArrowRight size={14} />
-                </a>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-black/0 to-black/0" />
+              <div className="absolute left-5 top-5 rounded-md bg-card/90 px-3 py-1.5 text-xs font-medium text-foreground backdrop-blur">
+                {name}
               </div>
-            </article>
+              <div className="absolute bottom-5 right-5 flex h-9 w-9 items-center justify-center rounded-full bg-card text-primary transition group-hover:bg-primary group-hover:text-primary-foreground">
+                <ArrowRight size={15} />
+              </div>
+            </Link>
           ))}
+        </div>
+        <div className="mt-12 flex justify-center reveal">
+          <Link
+            to="/services"
+            className="inline-flex items-center gap-2 rounded-md border border-foreground/20 px-7 py-3.5 text-sm font-medium text-foreground transition hover:border-foreground hover:bg-foreground hover:text-background"
+          >
+            Explore More Services <ArrowRight size={15} />
+          </Link>
         </div>
       </div>
     </section>
