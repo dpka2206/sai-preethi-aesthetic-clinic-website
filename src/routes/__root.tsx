@@ -72,25 +72,49 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Dr. Sai Preethi's Skin & Aesthetic Clinic | Best Dermatologist in Hyderabad" },
-      { name: "description", content: "Expert dermatology and aesthetic treatments in Hyderabad. Specialising in acne, hair loss, pigmentation, anti-ageing, paediatric dermatology, biologics, and advanced lasers. Book your consultation today." },
-      { name: "keywords", content: "best dermatologist in Hyderabad, skin clinic Hyderabad, acne treatment Hyderabad, hair loss treatment Hyderabad, laser skin treatment Hyderabad, aesthetic clinic Hyderabad, paediatric dermatologist Hyderabad, vitiligo treatment Hyderabad, psoriasis treatment Hyderabad, melasma treatment Hyderabad" },
+      { title: "Dr. Sai Preethi's Skin & Aesthetic Clinic | Best Dermatologist in Chennai" },
+      { name: "description", content: "Expert dermatology and aesthetic treatments in Chennai. Specialising in acne, hair loss, pigmentation, anti-ageing, paediatric dermatology, biologics, and advanced lasers. Book your consultation today." },
+      { name: "keywords", content: "best dermatologist in Chennai, skin clinic Chennai, acne treatment Chennai, hair loss treatment Chennai, laser skin treatment Chennai, aesthetic clinic Chennai, paediatric dermatologist Chennai, vitiligo treatment Chennai, psoriasis treatment Chennai, melasma treatment Chennai" },
       { name: "author", content: "Dr. Sai Preethi" },
-      { property: "og:title", content: "Dr. Sai Preethi's Skin & Aesthetic Clinic | Best Dermatologist in Hyderabad" },
-      { property: "og:description", content: "Expert dermatology and aesthetic treatments in Hyderabad. Specialising in acne, hair loss, pigmentation, anti-ageing, paediatric dermatology, biologics, and advanced lasers. Book your consultation today." },
+      { property: "og:title", content: "Dr. Sai Preethi's Skin & Aesthetic Clinic | Best Dermatologist in Chennai" },
+      { property: "og:description", content: "Expert dermatology and aesthetic treatments in Chennai. Specialising in acne, hair loss, pigmentation, anti-ageing, paediatric dermatology, biologics, and advanced lasers. Book your consultation today." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Dr. Sai Preethi's Skin & Aesthetic Clinic | Best Dermatologist in Hyderabad" },
-      { name: "twitter:description", content: "Expert dermatology and aesthetic treatments in Hyderabad. Specialising in acne, hair loss, pigmentation, anti-ageing, paediatric dermatology, biologics, and advanced lasers. Book your consultation today." },
+      { name: "twitter:title", content: "Dr. Sai Preethi's Skin & Aesthetic Clinic | Best Dermatologist in Chennai" },
+      { name: "twitter:description", content: "Expert dermatology and aesthetic treatments in Chennai. Specialising in acne, hair loss, pigmentation, anti-ageing, paediatric dermatology, biologics, and advanced lasers. Book your consultation today." },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/18e0a0be-fd60-4c13-8bd5-6a92970e783c/id-preview-1a5cd4f8--cb556556-cc9c-4cf5-b9b5-4b3c2c9ddd25.lovable.app-1778602690642.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/18e0a0be-fd60-4c13-8bd5-6a92970e783c/id-preview-1a5cd4f8--cb556556-cc9c-4cf5-b9b5-4b3c2c9ddd25.lovable.app-1778602690642.png" },
     ],
     links: [
+      { rel: "icon", type: "image/png", href: "/favicon.png" },
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "MedicalClinic",
+          "name": "Dr. Sai Preethi's Skin & Aesthetic Clinic",
+          "url": "https://saipreethiclinic.com/",
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": "Chennai",
+            "addressRegion": "Tamil Nadu",
+            "addressCountry": "IN"
+          },
+          "medicalSpecialty": [
+            "Dermatology",
+            "Cosmetic Dermatology",
+            "Pediatric Dermatology"
+          ],
+          "description": "Expert dermatology and aesthetic treatments in Chennai. Specialising in acne, hair loss, pigmentation, anti-ageing, paediatric dermatology, biologics, and advanced lasers."
+        })
+      }
     ],
   }),
   shellComponent: RootShell,

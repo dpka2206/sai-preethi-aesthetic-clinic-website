@@ -13,6 +13,8 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ArticlesRouteImport } from './routes/articles'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ArticlesIndexRouteImport } from './routes/articles.index'
+import { Route as ArticlesArticleIdRouteImport } from './routes/articles.$articleId'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -34,37 +36,65 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ArticlesIndexRoute = ArticlesIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ArticlesRoute,
+} as any)
+const ArticlesArticleIdRoute = ArticlesArticleIdRouteImport.update({
+  id: '/$articleId',
+  path: '/$articleId',
+  getParentRoute: () => ArticlesRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/articles': typeof ArticlesRoute
+  '/articles': typeof ArticlesRouteWithChildren
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/articles/$articleId': typeof ArticlesArticleIdRoute
+  '/articles/': typeof ArticlesIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/articles': typeof ArticlesRoute
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/articles/$articleId': typeof ArticlesArticleIdRoute
+  '/articles': typeof ArticlesIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/articles': typeof ArticlesRoute
+  '/articles': typeof ArticlesRouteWithChildren
   '/services': typeof ServicesRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/articles/$articleId': typeof ArticlesArticleIdRoute
+  '/articles/': typeof ArticlesIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/articles' | '/services' | '/sitemap.xml'
+  fullPaths:
+    | '/'
+    | '/articles'
+    | '/services'
+    | '/sitemap.xml'
+    | '/articles/$articleId'
+    | '/articles/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/articles' | '/services' | '/sitemap.xml'
-  id: '__root__' | '/' | '/articles' | '/services' | '/sitemap.xml'
+  to: '/' | '/services' | '/sitemap.xml' | '/articles/$articleId' | '/articles'
+  id:
+    | '__root__'
+    | '/'
+    | '/articles'
+    | '/services'
+    | '/sitemap.xml'
+    | '/articles/$articleId'
+    | '/articles/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  ArticlesRoute: typeof ArticlesRoute
+  ArticlesRoute: typeof ArticlesRouteWithChildren
   ServicesRoute: typeof ServicesRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
@@ -99,12 +129,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/articles/': {
+      id: '/articles/'
+      path: '/'
+      fullPath: '/articles/'
+      preLoaderRoute: typeof ArticlesIndexRouteImport
+      parentRoute: typeof ArticlesRoute
+    }
+    '/articles/$articleId': {
+      id: '/articles/$articleId'
+      path: '/$articleId'
+      fullPath: '/articles/$articleId'
+      preLoaderRoute: typeof ArticlesArticleIdRouteImport
+      parentRoute: typeof ArticlesRoute
+    }
   }
 }
 
+interface ArticlesRouteChildren {
+  ArticlesArticleIdRoute: typeof ArticlesArticleIdRoute
+  ArticlesIndexRoute: typeof ArticlesIndexRoute
+}
+
+const ArticlesRouteChildren: ArticlesRouteChildren = {
+  ArticlesArticleIdRoute: ArticlesArticleIdRoute,
+  ArticlesIndexRoute: ArticlesIndexRoute,
+}
+
+const ArticlesRouteWithChildren = ArticlesRoute._addFileChildren(
+  ArticlesRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  ArticlesRoute: ArticlesRoute,
+  ArticlesRoute: ArticlesRouteWithChildren,
   ServicesRoute: ServicesRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }

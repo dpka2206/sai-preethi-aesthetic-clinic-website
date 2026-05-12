@@ -90,7 +90,20 @@
       color-mix(in oklab, var(--primary) 75%, white) 0%,
       color-mix(in oklab, var(--sage) 65%, white) 100%);
   }
+  .glass-panel {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+  }
 }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float { animation: float 6s ease-in-out infinite; }
 
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -103,4 +116,79 @@
   to { opacity: 1; transform: translateY(0); }
 }
 .reveal { opacity: 0; }
-.reveal.in-view { animation: fadeUp 0.8s ease-out forwards; }
+.reveal[data-in-view="true"] { animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards; }
+
+/* --- Luxury Editorial Floating Slices --- */
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-7px) scale(1.01); }
+}
+@keyframes floatDown {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(7px) scale(0.99); }
+}
+@keyframes floatMid {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-4px) scale(1.005); }
+}
+.animate-float-1 { animation: floatUp 7s ease-in-out infinite; }
+.animate-float-2 { animation: floatDown 8.5s ease-in-out infinite; }
+.animate-float-3 { animation: floatMid 10s ease-in-out infinite; }
+
+/* --- Ambient Glow for Premium Buttons --- */
+.btn-glow-transition {
+  position: relative;
+  isolation: isolate;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-glow-transition::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--color-primary);
+  opacity: 0;
+  filter: blur(12px);
+  z-index: -1;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-glow-transition:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -10px color-mix(in oklab, var(--primary) 50%, transparent);
+}
+.btn-glow-transition:hover::after {
+  opacity: 0.35;
+}
+
+/* --- WhatsApp Pulse Ripple --- */
+.whatsapp-pulse {
+  position: relative;
+}
+.whatsapp-pulse::before {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border-radius: 9999px;
+  background-color: #25D366;
+  opacity: 0.5;
+  z-index: -1;
+  animation: ripplePulse 2.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
+}
+@keyframes ripplePulse {
+  0% { transform: scale(1); opacity: 0.65; }
+  100% { transform: scale(1.55); opacity: 0; }
+}
+
+/* --- Smooth FAQ sliding grid --- */
+.faq-grid-transition {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.faq-grid-transition-inner {
+  overflow: hidden;
+}
+details[open] + .faq-grid-transition {
+  grid-template-rows: 1fr;
+}
+

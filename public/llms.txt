@@ -1,0 +1,15 @@
+# Dr. Sai Preethi's Skin & Aesthetic Clinic
+> A leading, evidence-based dermatology and aesthetic clinic located in Chennai, India. We specialize in paediatric dermatology, hair restoration, acne treatment, pigmentation, advanced laser therapies, and biologic treatments for chronic skin conditions.
+
+## Pages
+- [Home](https://saipreethiclinic.com/): Main landing page detailing our core expertise and Dr. Sai Preethi's credentials.
+- [Services](https://saipreethiclinic.com/services): A comprehensive medical guide covering all our dermatology and aesthetic treatments, including diagnostic approaches and specific procedures.
+- [Articles](https://saipreethiclinic.com/articles): Patient education resources, skincare advice, and clinical insights written by Dr. Sai Preethi.
+
+## Core Expertise
+- Paediatric Dermatology (Eczema, birthmarks, infections)
+- Hair Regrowth & Restoration (PRP, GFC, Exosomes)
+- Acne & Scar Treatment (Chemical peels, Fractional CO2, Microneedling RF)
+- Facial & Body Pigmentation (Q-switched Nd:YAG, Picosecond lasers)
+- Anti-Ageing & Rejuvenation (Botox, Dermal Fillers, Profhilo, HIFU)
+- Clinical & Autoimmune Dermatology (Psoriasis, Vitiligo, Lupus, Biologics)
