@@ -432,13 +432,6 @@ function Treatments() {
 }
 
 /* ---------- Conditions ---------- */
-const conditions = [
-  "Acne","Acne Scars","Eczema","Psoriasis","Vitiligo","Melasma","Hair Loss","Alopecia Areata",
-  "Fungal Infections","Warts","Hyperhidrosis","Rosacea","Seborrheic Dermatitis","Pigmentation",
-  "Birthmarks","Skin Tags","Moles","Cysts","Lupus","Pemphigus","Lichen Planus","Paediatric Eczema",
-  "Urticaria","Periorbital Darkening","Underarm Darkening","Body Pigmentation","Genetic Skin Disorders",
-  "Scalp Disorders","PCOS-related Skin Issues","Ageing Skin","Sun Damage","Post-inflammatory Hyperpigmentation",
-];
 function Conditions() {
   const ref = useReveal();
   return (
