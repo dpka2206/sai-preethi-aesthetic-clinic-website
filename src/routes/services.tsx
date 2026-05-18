@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowLeft, CheckCircle2 } from "lucide-react";
 import { services } from "@/lib/clinic-data";
+import { BookConsultation } from "@/components/book-consultation";
 import { SiteNav, SiteFooter, WhatsAppFab } from "@/components/site-shell";
 
 export const Route = createFileRoute("/services")({
@@ -76,9 +77,9 @@ function ServicesPage() {
                 ))}
               </nav>
               <div className="mt-8 border-t border-border pt-6">
-                <a href="/#contact" className="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition hover:bg-primary/90">
+                <BookConsultation className="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition hover:bg-primary/90">
                   Book Consultation
-                </a>
+                </BookConsultation>
               </div>
             </div>
           </aside>

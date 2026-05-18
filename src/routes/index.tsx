@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import heroImg from "@/assets/hero-doctor.jpg";
 import aboutImg from "@/assets/about-doctor.jpg";
+import { BookConsultation } from "@/components/book-consultation";
 import { services, conditions } from "@/lib/clinic-data";
 
 export const Route = createFileRoute("/")({
@@ -96,12 +97,9 @@ function Nav() {
             )
           ))}
         </nav>
-        <a
-          href="#contact"
-          className="hidden rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition hover:opacity-90 md:inline-flex"
-        >
+        <BookConsultation className="hidden rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition hover:opacity-90 md:inline-flex">
           Book Consultation
-        </a>
+        </BookConsultation>
         <button
           aria-label="Open menu"
           className="rounded-md p-2 md:hidden"
@@ -120,13 +118,12 @@ function Nav() {
                 <a key={l} href={h} onClick={() => setOpen(false)} className="rounded px-2 py-3 text-sm text-foreground hover:bg-muted">{l}</a>
               )
             ))}
-            <a
-              href="#contact"
+            <BookConsultation
               onClick={() => setOpen(false)}
-              className="mt-2 rounded-md bg-primary px-5 py-3 text-center text-sm font-medium text-primary-foreground"
+              className="mt-2 w-full rounded-md bg-primary px-5 py-3 text-center text-sm font-medium text-primary-foreground"
             >
               Book Consultation
-            </a>
+            </BookConsultation>
           </div>
         </div>
       )}
@@ -161,12 +158,9 @@ function Hero() {
             dermatology — precision care for every skin, every age, every concern.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-5">
-            <a
-              href="#contact"
-              className="btn-glow-transition rounded-full bg-primary px-7 py-3.5 text-sm font-medium text-primary-foreground shadow-lg shadow-primary/25"
-            >
+            <BookConsultation className="btn-glow-transition rounded-full bg-primary px-7 py-3.5 text-sm font-medium text-primary-foreground shadow-lg shadow-primary/25">
               Book Consultation
-            </a>
+            </BookConsultation>
             <a
               href="#services"
               className="group inline-flex items-center gap-2 text-sm font-medium text-foreground transition hover:text-primary"
@@ -298,12 +292,9 @@ function Why() {
                 We combine advanced medical expertise with a deeply personalised, diagnosis-first approach to provide you with the finest dermatological care.
               </p>
               <div className="mt-10 hidden lg:block">
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-medium text-primary-foreground transition hover:opacity-90"
-                >
+                <BookConsultation className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm font-medium text-primary-foreground transition hover:opacity-90">
                   Book your visit <ArrowRight size={16} />
-                </a>
+                </BookConsultation>
               </div>
             </div>
           </div>
@@ -410,9 +401,9 @@ function About() {
               </span>
             ))}
           </div>
-          <a href="#contact" className="mt-8 inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition hover:opacity-90">
+          <BookConsultation className="mt-8 inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition hover:opacity-90">
             Book a Consultation <ArrowRight size={16} />
-          </a>
+          </BookConsultation>
         </div>
       </div>
     </section>
@@ -619,9 +610,9 @@ function ContactCTA() {
           Book a consultation with Dr. Sai Preethi today — available for in-clinic appointments in Chennai.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <a href="#" className="btn-glow-transition rounded-md bg-white px-7 py-3.5 text-sm font-medium text-foreground">
+          <BookConsultation className="btn-glow-transition rounded-md bg-white px-7 py-3.5 text-sm font-medium text-foreground">
             Book Consultation
-          </a>
+          </BookConsultation>
           <a href="tel:+910000000000" className="rounded-md border border-white/70 px-7 py-3.5 text-sm font-medium text-white transition hover:bg-white/10">
             Call Us
           </a>
@@ -677,9 +668,9 @@ function Footer() {
           <div className="mt-4 aspect-[16/10] w-full overflow-hidden rounded-xl border border-border/40 bg-white p-3 flex items-center justify-center soft-shadow" aria-hidden>
             <img src="/images/logo.png" alt="Dr. Sai Preethi's Skin and Aesthetic Clinic Logo" className="h-full w-full object-contain" />
           </div>
-          <a href="#contact" className="btn-glow-transition mt-4 inline-flex w-full items-center justify-center rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground">
+          <BookConsultation className="btn-glow-transition mt-4 inline-flex w-full items-center justify-center rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground">
             Book Now
-          </a>
+          </BookConsultation>
         </div>
       </div>
       <div className="mx-auto mt-12 flex max-w-7xl flex-wrap items-center justify-between gap-3 border-t border-border pt-6 text-xs text-muted-foreground">

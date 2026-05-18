@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import { CAL_EMBED_SCRIPT } from "@/lib/cal-booking";
 
 function NotFoundComponent() {
   return (
@@ -94,6 +95,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" },
     ],
     scripts: [
+      {
+        type: "text/javascript",
+        children: CAL_EMBED_SCRIPT,
+      },
       {
         type: "application/ld+json",
         children: JSON.stringify({

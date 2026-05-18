@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowRight } from "lucide-react";
+import { BookConsultation } from "@/components/book-consultation";
 import { SiteNav, SiteFooter, WhatsAppFab } from "@/components/site-shell";
 import { articles } from "@/lib/articles-data";
 
@@ -68,9 +69,9 @@ function ArticlesIndexPage() {
           <div className="mt-20 rounded-2xl gradient-warm p-8 text-center text-white md:p-12">
             <h3 className="font-serif text-3xl">Have a specific skin concern?</h3>
             <p className="mx-auto mt-3 max-w-md text-white/85">Book a consultation with Dr. Sai Preethi for an accurate diagnosis and treatment plan.</p>
-            <a href="/#contact" className="mt-6 inline-flex items-center gap-2 rounded-md bg-white px-6 py-3 text-sm font-medium text-foreground hover:opacity-90">
+            <BookConsultation className="mt-6 inline-flex items-center gap-2 rounded-md bg-white px-6 py-3 text-sm font-medium text-foreground hover:opacity-90">
               Book Consultation <ArrowRight size={15} />
-            </a>
+            </BookConsultation>
           </div>
         </div>
       </main>

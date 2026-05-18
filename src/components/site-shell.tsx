@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Menu, X, MessageCircle, Instagram, Facebook, MapPin, Phone, Mail } from "lucide-react";
 import { useEffect, useState } from "react";
+import { BookConsultation } from "@/components/book-consultation";
 import { services, conditions } from "@/lib/clinic-data";
 
 export function SiteNav() {
@@ -35,7 +36,9 @@ export function SiteNav() {
             )
           )}
         </nav>
-        <a href="/#contact" className="btn-glow-transition hidden rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground md:inline-flex">Book Consultation</a>
+        <BookConsultation className="btn-glow-transition hidden rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground md:inline-flex">
+          Book Consultation
+        </BookConsultation>
         <button aria-label="menu" className="rounded-md p-2 md:hidden" onClick={() => setOpen((o) => !o)}>
           {open ? <X size={22} /> : <Menu size={22} />}
         </button>
@@ -50,7 +53,9 @@ export function SiteNav() {
                 <Link key={l} to={h} onClick={() => setOpen(false)} className="rounded px-2 py-3 text-sm text-foreground hover:bg-muted">{l}</Link>
               )
             )}
-            <a href="/#contact" onClick={() => setOpen(false)} className="mt-2 rounded-md bg-primary px-5 py-3 text-center text-sm font-medium text-primary-foreground">Book Consultation</a>
+            <BookConsultation onClick={() => setOpen(false)} className="mt-2 w-full rounded-md bg-primary px-5 py-3 text-center text-sm font-medium text-primary-foreground">
+              Book Consultation
+            </BookConsultation>
           </div>
         </div>
       )}
@@ -94,9 +99,9 @@ export function SiteFooter() {
           <div className="mt-4 aspect-[16/10] w-full overflow-hidden rounded-xl border border-border/40 bg-white p-3 flex items-center justify-center soft-shadow" aria-hidden>
             <img src="/images/logo.png" alt="Dr. Sai Preethi's Skin and Aesthetic Clinic Logo" className="h-full w-full object-contain" />
           </div>
-          <a href="/#contact" className="btn-glow-transition mt-4 inline-flex w-full items-center justify-center rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground">
+          <BookConsultation className="btn-glow-transition mt-4 inline-flex w-full items-center justify-center rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground">
             Book Consultation
-          </a>
+          </BookConsultation>
         </div>
       </div>
       <div className="mx-auto mt-12 flex max-w-7xl flex-wrap items-center justify-between gap-3 border-t border-border pt-6 text-xs text-muted-foreground">
