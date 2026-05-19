@@ -192,3 +192,48 @@ details[open] + .faq-grid-transition {
   grid-template-rows: 1fr;
 }
 
+/* --- Ambient Mesh Glow Keyframes --- */
+@keyframes meshDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.12); }
+  66% { transform: translate(-20px, 40px) scale(0.92); }
+}
+.animate-mesh-1 {
+  animation: meshDrift 20s ease-in-out infinite;
+}
+.animate-mesh-2 {
+  animation: meshDrift 26s ease-in-out infinite alternate;
+}
+
+/* --- Initial Opening Text Reveals --- */
+@keyframes textRise {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-reveal-text {
+  opacity: 0;
+  animation: textRise 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* --- Interactive Card Shine Effect --- */
+.card-shine {
+  position: relative;
+  overflow: hidden;
+}
+.card-shine::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transform: skewX(-25deg);
+  transition: 0.75s;
+}
+.card-shine:hover::after {
+  left: 150%;
+  transition: 0.75s;
+}
+
+

@@ -23,9 +23,12 @@ export function SiteNav() {
   return (
     <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? "bg-background/85 backdrop-blur-md soft-shadow" : "bg-background/70 backdrop-blur-sm"}`}>
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
-        <Link to="/" className="flex flex-col leading-tight">
-          <span className="font-serif text-xl font-bold tracking-tight text-foreground">Dr. Sai Preethi</span>
-          <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">Skin & Aesthetic Clinic</span>
+        <Link to="/" className="flex items-center gap-3">
+          <img src="/images/logo.png?v=2" alt="Logo" className="h-10 w-auto object-contain" />
+          <div className="flex flex-col leading-tight">
+            <span className="font-serif text-xl font-bold tracking-tight text-foreground">Dr. Sai Preethi</span>
+            <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">Skin & Aesthetic Clinic</span>
+          </div>
         </Link>
         <nav className="hidden items-center gap-9 md:flex">
           {links.map(([l, h]) =>
@@ -67,10 +70,15 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-cream px-6 py-16 lg:px-10">
       <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-2 lg:grid-cols-3">
-        <div>
-          <p className="font-serif text-2xl font-bold text-foreground">Dr. Sai Preethi</p>
-          <p className="mt-1 text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">Skin & Aesthetic Clinic</p>
-          <p className="mt-5 max-w-xs text-sm text-muted-foreground">Expert dermatology & aesthetic care. Diagnosis-first, evidence-based, beautifully delivered.</p>
+        <div className="flex flex-col">
+          <div className="flex items-center gap-3.5 mb-5">
+            <img src="/images/logo.png?v=2" alt="Logo" className="h-12 w-auto object-contain" />
+            <div className="flex flex-col leading-tight">
+              <p className="font-serif text-2xl font-bold text-foreground">Dr. Sai Preethi</p>
+              <p className="mt-1 text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">Skin & Aesthetic Clinic</p>
+            </div>
+          </div>
+          <p className="max-w-xs text-sm text-muted-foreground">Expert dermatology & aesthetic care. Diagnosis-first, evidence-based, beautifully delivered.</p>
           <div className="mt-6 flex gap-3">
             {[Instagram, Facebook, MessageCircle].map((I, i) => (
               <a key={i} href="#" aria-label="social" className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground hover:bg-primary hover:text-primary-foreground"><I size={15} /></a>
@@ -91,7 +99,7 @@ export function SiteFooter() {
             <li className="flex items-start gap-2"><Mail size={14} className="mt-0.5"/> saipreethiclinic@gmail.com</li>
           </ul>
           <div className="mt-4 aspect-[16/10] w-full overflow-hidden rounded-xl border border-border/40 bg-white p-3 flex items-center justify-center soft-shadow" aria-hidden>
-            <img src="/images/logo.png" alt="Dr. Sai Preethi's Skin and Aesthetic Clinic Logo" className="h-full w-full object-contain" />
+            <img src="/images/logo_original.png" alt="Dr. Sai Preethi's Skin and Aesthetic Clinic Logo" className="h-full w-full object-contain" />
           </div>
           <BookConsultation className="btn-glow-transition mt-4 inline-flex w-full items-center justify-center rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground">
             Book Consultation

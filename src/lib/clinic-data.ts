@@ -21,7 +21,7 @@ export const services: ServiceData[] = [
     id: "paediatric-dermatology",
     name: "Paediatric Dermatology",
     shortDescription: "Expert skin care for children, from newborns to teens. We manage conditions like Eczema and birthmark with thorough diagnostic approach",
-    image: "/images/services/paediatric_derm_1778608429120.png",
+    image: "/images/services/paediatric_dermatology_care.png",
     pageHeadline: "Expert Skin Care for Children — From Newborns to Teens",
     subheading: "Because young skin deserves specialised attention",
     intro: [
@@ -127,7 +127,7 @@ export const services: ServiceData[] = [
     id: "acne-scars",
     name: "Acne & Acne Scar Treatment",
     shortDescription: "From the first breakout to the last scar, we tailor treatments like chemical peels, RF microneedling, and fractional lasers to restore your skin.",
-    image: "/images/services/acne_treatment_1778608480614.png",
+    image: "/images/services/acne_clinical_treatment.png",
     pageHeadline: "Clearer Skin Is Possible — Comprehensive Acne & Scar Care",
     subheading: "From the first breakout to the last scar — we treat acne at every stage",
     intro: [
@@ -200,7 +200,7 @@ export const services: ServiceData[] = [
     id: "clinical-dermatology",
     name: "Clinical Dermatology",
     shortDescription: "In-depth, evidence-based treatment for complex conditions. We manage chronic diseases like psoriasis and vitiligo using advanced therapies.",
-    image: "/images/services/clinical_derm_1778608515594.png",
+    image: "/images/services/clinical_derm_exam.png",
     pageHeadline: "Advanced Clinical Dermatology for Chronic & Complex Skin Conditions",
     subheading: "In-depth evaluation and evidence-based treatment including biologics",
     intro: [
@@ -277,7 +277,7 @@ export const services: ServiceData[] = [
     id: "anti-ageing",
     name: "Anti-Ageing & Rejuvenation",
     shortDescription: "Science-backed treatments to restore youthful vitality. We combine regenerative medicine with injectables like Botox, Profhilo, and HIFU.",
-    image: "/images/services/anti_ageing_1778608665662.png",
+    image: "/images/services/aesthetic_treatment_laser.png",
     pageHeadline: "Age on Your Own Terms — Advanced Anti-Ageing & Skin Rejuvenation",
     subheading: "Science-backed treatments to restore radiance, firmness, and youthful vitality",
     intro: [

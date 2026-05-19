@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import {
   Menu, X, Microscope, Syringe, Baby, MapPin, Phone, Mail,
-  Star, Instagram, Facebook, MessageCircle, ArrowRight, ChevronDown, Sparkles, ArrowUpRight,
+  Star, Instagram, Facebook, MessageCircle, ArrowRight, ChevronDown, Sparkles, ArrowUpRight, Check,
 } from "lucide-react";
 import heroImg from "@/assets/hero-doctor.jpg";
 import aboutImg from "@/assets/about-doctor.jpg";
@@ -82,11 +82,14 @@ function Nav() {
       }`}
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
-        <a href="#top" className="flex flex-col leading-tight" aria-label="Home">
-          <span className="font-serif text-xl font-bold tracking-tight text-foreground">Dr. Sai Preethi</span>
-          <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
-            Skin & Aesthetic Clinic
-          </span>
+        <a href="#top" className="flex items-center gap-3" aria-label="Home">
+          <img src="/images/logo.png?v=2" alt="Logo" className="h-10 w-auto object-contain" />
+          <div className="flex flex-col leading-tight">
+            <span className="font-serif text-xl font-bold tracking-tight text-foreground">Dr. Sai Preethi</span>
+            <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
+              Skin & Aesthetic Clinic
+            </span>
+          </div>
         </a>
         <nav className="hidden items-center gap-9 md:flex" aria-label="Main">
           {links.map(([l, h]) => (
@@ -134,101 +137,207 @@ function Nav() {
 /* ---------- Hero ---------- */
 function Hero() {
   const ref = useReveal();
+  const [hoveredPanel, setHoveredPanel] = useState<number | null>(null);
+  const [activeMobilePanel, setActiveMobilePanel] = useState<number | null>(0);
+
+  const panels = [
+    {
+      id: "clinical",
+      title: "Clinical Dermatology",
+      subtitle: "Evidence-based therapy for complex and chronic skin conditions.",
+      img: "/images/services/clinical_derm_exam.png",
+      imgClass: "object-cover",
+      overlayColor: "from-black/90 via-black/50 to-black/10",
+      servicesList: ["Psoriasis & Vitiligo Biologics", "Atopic Dermatitis & Eczema", "Autoimmune Skin Conditions", "Dermoscopy & Biopsies"]
+    },
+    {
+      id: "aesthetic",
+      title: "Aesthetic Artistry",
+      subtitle: "Advanced regenerative solutions for skin, hair, and structural volume.",
+      img: "/images/services/aesthetic_treatment_laser.png",
+      imgClass: "object-cover",
+      overlayColor: "from-black/90 via-black/50 to-black/10",
+      servicesList: ["PRP & GFC Hair Growth", "Botulinum Toxin & Fillers", "Fractional CO₂ Laser Resurfacing", "Face Conturing Procedures"]
+    },
+    {
+      id: "paediatric",
+      title: "Paediatric Care",
+      subtitle: "Specialised and gentle clinical diagnostics for infants, children, and teens.",
+      img: "/images/services/paediatric_dermatology_care.png",
+      imgClass: "object-cover",
+      overlayColor: "from-black/90 via-black/50 to-black/10",
+      servicesList: ["Paediatric Eczema Care", "Birthmark Management", "Infections & Genodermatoses", "Thorough Diagnostic Approach"]
+    }
+  ];
+
   return (
-    <section id="top" ref={ref} className="relative pt-24 pb-16 lg:pt-32 lg:pb-24 overflow-hidden bg-background">
+    <section 
+      id="top" 
+      ref={ref} 
+      className="relative pt-20 pb-12 lg:pt-24 lg:pb-16 overflow-hidden bg-background flex flex-col items-center"
+    >
+      {/* Decorative animated mesh blobs */}
+      <div className="absolute top-1/4 left-1/10 w-96 h-96 rounded-full bg-primary/5 blur-[120px] pointer-events-none animate-mesh-1 -z-10" />
+      <div className="absolute bottom-1/4 right-1/10 w-[500px] h-[500px] rounded-full bg-sage/5 blur-[150px] pointer-events-none animate-mesh-2 -z-10" />
+
       {/* Curvy background lines */}
-      <svg className="absolute top-0 left-0 w-full h-full text-primary/15 pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <path d="M-10,60 Q30,90 50,40 T110,70" fill="none" stroke="currentColor" strokeWidth="0.4" />
-        <path d="M-10,20 Q40,-10 70,40 T110,20" fill="none" stroke="currentColor" strokeWidth="0.2" />
-        <path d="M80,-10 Q90,30 110,50" fill="none" stroke="currentColor" strokeWidth="0.3" />
+      <svg className="absolute top-0 left-0 w-full h-full text-primary/10 pointer-events-none" viewBox="0 0 100 100" preserveAspectRatio="none">
+        <path d="M-10,60 Q30,90 50,40 T110,70" fill="none" stroke="currentColor" strokeWidth="0.3" />
+        <path d="M-10,20 Q40,-10 70,40 T110,20" fill="none" stroke="currentColor" strokeWidth="0.15" />
       </svg>
 
-      <div className="mx-auto grid max-w-7xl gap-14 px-6 lg:grid-cols-12 lg:gap-16 lg:px-10 items-center">
-        {/* Text Column */}
-        <div className="lg:col-span-6 reveal z-10">
-          <span className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-[10px] uppercase tracking-[0.18em] text-primary font-medium">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" /> Chennai, India
-          </span>
-          <h1 className="mt-6 font-serif text-4xl leading-[1.15] text-foreground md:text-5xl lg:text-6xl text-balance">
-            Your skin deserves <br />
-            <em className="text-primary italic font-light">expert</em> care.
-          </h1>
-          <p className="mt-6 max-w-lg text-base leading-relaxed text-muted-foreground">
-            Board-certified dermatologist specialising in medical &amp; aesthetic
-            dermatology — precision care for every skin, every age, every concern.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-5">
-            <BookConsultation className="btn-glow-transition rounded-full bg-primary px-7 py-3.5 text-sm font-medium text-primary-foreground shadow-lg shadow-primary/25">
-              Book Consultation
-            </BookConsultation>
-            <a
-              href="#services"
-              className="group inline-flex items-center gap-2 text-sm font-medium text-foreground transition hover:text-primary"
-            >
-              <span className="relative">
-                Explore Treatments
-                <span className="absolute -bottom-1 left-0 h-[1px] w-0 bg-primary transition-all duration-300 group-hover:w-full" />
-              </span>
-              <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
-            </a>
-          </div>
-          <dl className="mt-12 grid grid-cols-3 gap-6 border-t border-border pt-8">
-            {[
-              ["10+", "Years Experience"],
-              ["Advanced", "Biologics & Lasers"],
-              ["Personalised", "Treatment Plans"],
-            ].map(([k, v]) => (
-              <div key={v}>
-                <dt className="font-serif text-xl text-foreground">{k}</dt>
-                <dd className="mt-1 text-[10px] uppercase tracking-wider text-muted-foreground">{v}</dd>
-              </div>
-            ))}
-          </dl>
-        </div>
-
-        {/* Professional Image Frame Column */}
-        <div className="relative mt-12 lg:col-span-6 lg:ml-auto reveal z-10 w-full max-w-md mx-auto lg:max-w-none">
-          <div className="relative mx-auto w-full max-w-[450px]">
-            {/* Background decorative glow */}
-            <div className="absolute -inset-4 rounded-[2.5rem] bg-gradient-to-tr from-primary/10 via-primary/5 to-transparent blur-2xl -z-10" />
-            
-            {/* Elegant double frame outline */}
-            <div className="absolute inset-0 border border-primary/20 rounded-[2rem] translate-x-4 translate-y-4 -z-10 transition-transform duration-700" />
-            
-            <div className="overflow-hidden rounded-[2rem] bg-card border border-border/80 shadow-2xl">
-              <img 
-                src={heroImg} 
-                alt="Dr. Sai Preethi - Lead Dermatologist" 
-                className="w-full aspect-[4/5] object-cover transition-transform duration-[2000ms] hover:scale-105" 
-              />
-            </div>
-            
-            {/* Overlapping Info Card */}
-            <div className="absolute -bottom-6 -left-6 md:-left-10 rounded-2xl border border-border bg-background/95 p-5 backdrop-blur-md shadow-xl max-w-[260px] animate-float-2">
-              <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
-                  <Star className="h-5 w-5 fill-primary" />
-                </div>
-                <div>
-                  <h4 className="font-serif text-sm font-semibold text-foreground">Dr. Sai Preethi, MD</h4>
-                  <p className="text-[11px] text-muted-foreground">Consultant Dermatologist & Surgeon</p>
-                </div>
-              </div>
-              <div className="mt-3 border-t border-border/60 pt-3 flex items-center justify-between text-[10px] uppercase tracking-wider text-muted-foreground">
-                <span>Sri Ramachandra Univ</span>
-                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-                <span>Chennai</span>
-              </div>
-            </div>
-
-            {/* Overlapping Tech Badge */}
-            <div className="absolute -top-6 -right-6 rounded-full border border-border bg-background/95 px-4 py-2.5 backdrop-blur-sm shadow-lg flex items-center gap-2">
-              <Sparkles className="h-4 w-4 text-primary animate-pulse" />
-              <span className="text-[11px] font-medium tracking-wide text-foreground">Advanced Laser Care</span>
-            </div>
-          </div>
+      {/* Centered Typography Header */}
+      <div className="max-w-4xl text-center px-6 lg:px-10 flex flex-col items-center">
+        <span 
+          className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/5 px-3.5 py-1 text-[10px] uppercase tracking-[0.25em] text-primary font-bold animate-reveal-text"
+          style={{ animationDelay: "100ms" }}
+        >
+          <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" /> Science Meets Aesthetics
+        </span>
+        
+        <h1 
+          className="mt-4 font-serif text-3xl leading-[1.12] text-foreground md:text-4xl lg:text-5xl xl:text-6xl max-w-5xl text-balance animate-reveal-text"
+          style={{ animationDelay: "250ms" }}
+        >
+          Expert care calibrated for <br />
+          <em className="text-primary italic font-light">individual</em> skin health.
+        </h1>
+        
+        <p 
+          className="mt-4 max-w-2xl text-sm md:text-base leading-relaxed text-muted-foreground animate-reveal-text"
+          style={{ animationDelay: "400ms" }}
+        >
+          Led by Dr. Sai Preethi, MD — Consultant Dermatologist. Delivering clinically-proven diagnostics, advanced laser technologies, and personalized treatments.
+        </p>
+        
+        <div 
+          className="mt-5 flex flex-wrap justify-center items-center gap-4 animate-reveal-text"
+          style={{ animationDelay: "550ms" }}
+        >
+          <BookConsultation className="btn-glow-transition rounded-full bg-primary px-6 py-3 text-xs md:text-sm font-semibold text-primary-foreground shadow-lg shadow-primary/25">
+            Book Consultation
+          </BookConsultation>
+          <a
+            href="#services"
+            className="group inline-flex items-center gap-2 rounded-full border border-border bg-card px-6 py-3 text-xs md:text-sm font-semibold text-foreground transition hover:bg-muted"
+          >
+            Explore Services
+            <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+          </a>
         </div>
       </div>
+
+      {/* Accordion lookbook container - Desktop Only */}
+      <div 
+        className="hidden lg:flex w-full max-w-6xl h-[390px] mt-8 px-10 gap-4 overflow-hidden rounded-3xl animate-reveal-text"
+        style={{ animationDelay: "700ms" }}
+      >
+        {panels.map((p, i) => {
+          const isCurrent = hoveredPanel === i;
+          return (
+            <div
+              key={p.id}
+              onMouseEnter={() => setHoveredPanel(i)}
+              onMouseLeave={() => setHoveredPanel(null)}
+              style={{
+                flex: hoveredPanel === null 
+                  ? '1 1 0%' 
+                  : isCurrent 
+                    ? '2.5 1 0%' 
+                    : '0.75 1 0%'
+              }}
+              className="relative h-full flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 p-6 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer group"
+            >
+              {/* Background image & overlay */}
+              <div className="absolute inset-0 -z-10 transition-transform duration-[1200ms] ease-out group-hover:scale-105">
+                <img src={p.img} alt={p.title} className={`w-full h-full ${p.imgClass}`} />
+                <div className={`absolute inset-0 bg-gradient-to-t ${p.overlayColor} transition-opacity duration-500`} />
+              </div>
+
+              {/* Top Row: Clean alignment spacing */}
+              <div className="h-4" />
+
+              {/* Bottom Row: Text content */}
+              <div className="text-white">
+                <h3 className="font-serif text-xl md:text-2xl font-medium tracking-tight text-white mb-2">
+                  {p.title}
+                </h3>
+                
+                <p className={`text-[11px] md:text-xs text-white/75 leading-relaxed max-w-md transition-all duration-500 ${
+                  isCurrent || hoveredPanel === null ? 'opacity-100 max-h-16' : 'opacity-0 max-h-0 overflow-hidden'
+                }`}>
+                  {p.subtitle}
+                </p>
+
+                {/* Services list - reveals on hover */}
+                <div className={`mt-3 space-y-2 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+                  isCurrent 
+                    ? "opacity-100 max-h-[110px]" 
+                    : "opacity-0 max-h-0 pointer-events-none"
+                }`}>
+                  <ul className="grid grid-cols-2 gap-2 border-t border-white/20 pt-3">
+                    {p.servicesList.map((item) => (
+                      <li key={item} className="flex items-center gap-1.5 text-[10px] md:text-xs text-white/90">
+                        <Check size={10} className="text-primary shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Accordion lookbook container - Mobile/Tablet Stack */}
+      <div className="lg:hidden w-full max-w-md px-6 mt-8 flex flex-col gap-3">
+        {panels.map((p, i) => {
+          const isMobileActive = activeMobilePanel === i;
+          return (
+            <div
+              key={p.id}
+              onClick={() => setActiveMobilePanel(isMobileActive ? null : i)}
+              className={`relative overflow-hidden rounded-2xl border border-border/80 p-5 transition-all duration-500 ease-in-out cursor-pointer ${
+                isMobileActive ? 'h-[260px]' : 'h-[100px]'
+              }`}
+            >
+              {/* Background image & overlay */}
+              <div className="absolute inset-0 -z-10">
+                <img src={p.img} alt={p.title} className={`w-full h-full ${p.imgClass}`} />
+                <div className={`absolute inset-0 bg-gradient-to-t ${p.overlayColor}`} />
+              </div>
+
+              <div className="h-full flex flex-col justify-between">
+                {/* Header info */}
+                <div>
+                  <div className="h-1" />
+                  <h3 className="font-serif text-lg font-semibold text-white">{p.title}</h3>
+                </div>
+
+                {/* Subtitle / Services list */}
+                <div className="text-white mt-1.5">
+                  <p className={`text-[11px] text-white/70 ${isMobileActive ? 'block' : 'line-clamp-1'}`}>
+                    {p.subtitle}
+                  </p>
+                  
+                  {isMobileActive && (
+                    <ul className="mt-3 grid grid-cols-1 gap-1.5 border-t border-white/20 pt-2.5">
+                      {p.servicesList.map((item) => (
+                        <li key={item} className="flex items-center gap-1.5 text-[11px] text-white/95">
+                          <Check size={10} className="text-primary shrink-0" />
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
     </section>
   );
 }
@@ -654,10 +763,15 @@ function Footer() {
   return (
     <footer className="border-t border-border bg-cream px-6 py-16 lg:px-10">
       <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-2 lg:grid-cols-3">
-        <div>
-          <p className="font-serif text-2xl font-bold text-foreground">Dr. Sai Preethi</p>
-          <p className="mt-1 text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">Skin & Aesthetic Clinic</p>
-          <p className="mt-5 max-w-xs text-sm text-muted-foreground">
+        <div className="flex flex-col">
+          <div className="flex items-center gap-3.5 mb-5">
+            <img src="/images/logo.png?v=2" alt="Logo" className="h-12 w-auto object-contain" />
+            <div className="flex flex-col leading-tight">
+              <p className="font-serif text-2xl font-bold text-foreground">Dr. Sai Preethi</p>
+              <p className="mt-1 text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">Skin & Aesthetic Clinic</p>
+            </div>
+          </div>
+          <p className="max-w-xs text-sm text-muted-foreground">
             Expert dermatology & aesthetic care. Diagnosis-first, evidence-based, beautifully delivered.
           </p>
           <div className="mt-6 flex gap-3">
@@ -682,7 +796,7 @@ function Footer() {
             <li className="flex items-start gap-2"><Mail size={14} className="mt-0.5"/> saipreethiclinic@gmail.com</li>
           </ul>
           <div className="mt-4 aspect-[16/10] w-full overflow-hidden rounded-xl border border-border/40 bg-white p-3 flex items-center justify-center soft-shadow" aria-hidden>
-            <img src="/images/logo.png" alt="Dr. Sai Preethi's Skin and Aesthetic Clinic Logo" className="h-full w-full object-contain" />
+            <img src="/images/logo_original.png" alt="Dr. Sai Preethi's Skin and Aesthetic Clinic Logo" className="h-full w-full object-contain" />
           </div>
           <BookConsultation className="btn-glow-transition mt-4 inline-flex w-full items-center justify-center rounded-md bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground">
             Book Now
