@@ -68,7 +68,7 @@ function Nav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
   const links = [
-    ["Services", "#services"],
+    ["Services", "/services"],
     ["About", "#about"],
     ["Treatments", "#treatments"],
     ["Articles", "/articles"],
@@ -139,6 +139,37 @@ function Hero() {
   const ref = useReveal();
   const [hoveredPanel, setHoveredPanel] = useState<number | null>(null);
   const [activeMobilePanel, setActiveMobilePanel] = useState<number | null>(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.innerWidth >= 1024) return;
+      
+      const cards = document.querySelectorAll(".mobile-accordion-card");
+      let closestCardIndex = null;
+      let closestDistance = Infinity;
+      const viewportCenter = window.innerHeight / 2;
+
+      cards.forEach((card, index) => {
+        const rect = card.getBoundingClientRect();
+        const cardCenter = rect.top + rect.height / 2;
+        const distance = Math.abs(cardCenter - viewportCenter);
+
+        if (distance < closestDistance) {
+          closestDistance = distance;
+          closestCardIndex = index;
+        }
+      });
+
+      if (closestCardIndex !== null && closestDistance < window.innerHeight * 0.35) {
+        setActiveMobilePanel(closestCardIndex);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const panels = [
     {
@@ -249,16 +280,16 @@ function Hero() {
               className="relative h-full flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 p-6 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] cursor-pointer group"
             >
               {/* Background image & overlay */}
-              <div className="absolute inset-0 -z-10 transition-transform duration-[1200ms] ease-out group-hover:scale-105">
+              <div className="absolute inset-0 z-0 transition-transform duration-[1200ms] ease-out group-hover:scale-105">
                 <img src={p.img} alt={p.title} className={`w-full h-full ${p.imgClass}`} />
                 <div className={`absolute inset-0 bg-gradient-to-t ${p.overlayColor} transition-opacity duration-500`} />
               </div>
 
               {/* Top Row: Clean alignment spacing */}
-              <div className="h-4" />
+              <div className="h-4 relative z-10" />
 
               {/* Bottom Row: Text content */}
-              <div className="text-white">
+              <div className="text-white relative z-10">
                 <h3 className="font-serif text-xl md:text-2xl font-medium tracking-tight text-white mb-2">
                   {p.title}
                 </h3>
@@ -298,17 +329,17 @@ function Hero() {
             <div
               key={p.id}
               onClick={() => setActiveMobilePanel(isMobileActive ? null : i)}
-              className={`relative overflow-hidden rounded-2xl border border-border/80 p-5 transition-all duration-500 ease-in-out cursor-pointer ${
+              className={`mobile-accordion-card relative overflow-hidden rounded-2xl border border-border/80 p-5 transition-all duration-500 ease-in-out cursor-pointer ${
                 isMobileActive ? 'h-[260px]' : 'h-[100px]'
               }`}
             >
               {/* Background image & overlay */}
-              <div className="absolute inset-0 -z-10">
+              <div className="absolute inset-0 z-0">
                 <img src={p.img} alt={p.title} className={`w-full h-full ${p.imgClass}`} />
                 <div className={`absolute inset-0 bg-gradient-to-t ${p.overlayColor}`} />
               </div>
 
-              <div className="h-full flex flex-col justify-between">
+              <div className="h-full flex flex-col justify-between relative z-10">
                 {/* Header info */}
                 <div>
                   <div className="h-1" />
@@ -820,7 +851,7 @@ function WhatsAppFab() {
     <a
       href="https://wa.me/910000000000"
       aria-label="Chat on WhatsApp"
-      className="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition hover:scale-105"
+      className="whatsapp-pulse fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition hover:scale-105 hover:bg-primary/95"
       target="_blank"
       rel="noopener"
     >

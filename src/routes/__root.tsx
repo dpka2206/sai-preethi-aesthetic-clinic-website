@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -144,6 +145,65 @@ function RootShell({ children }: { children: React.ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+
+  useEffect(() => {
+    let isModalOpen = false;
+
+    // 1. Handle outside click/touch to close modal
+    const handleOutsideClick = (e: MouseEvent | TouchEvent) => {
+      const iframe = document.querySelector('iframe[name^="cal-embed-"]');
+      if (!iframe) return;
+
+      // Don't close if clicking the trigger button itself
+      const isTrigger = (e.target as HTMLElement).closest('[data-cal-link]');
+      if (isTrigger) return;
+
+      // Call Cal.com namespace close instruction
+      const Cal = (window as any).Cal;
+      if (Cal && Cal.ns && Cal.ns.book) {
+        Cal.ns.book("closeModal");
+      }
+    };
+
+    window.addEventListener("click", handleOutsideClick, true);
+    window.addEventListener("touchstart", handleOutsideClick, true);
+
+    // 2. Handle back button / history state to close modal
+    const handlePopState = () => {
+      if (isModalOpen) {
+        isModalOpen = false;
+        const Cal = (window as any).Cal;
+        if (Cal && Cal.ns && Cal.ns.book) {
+          Cal.ns.book("closeModal");
+        }
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+
+    // 3. Observe DOM for the Cal.com iframe mount/dismount
+    const observer = new MutationObserver(() => {
+      const iframe = document.querySelector('iframe[name^="cal-embed-"]');
+      if (iframe && !isModalOpen) {
+        isModalOpen = true;
+        window.history.pushState({ bookingOpen: true }, "");
+      } else if (!iframe && isModalOpen) {
+        isModalOpen = false;
+        if (window.history.state?.bookingOpen) {
+          window.history.back();
+        }
+      }
+    });
+
+    observer.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      window.removeEventListener("click", handleOutsideClick, true);
+      window.removeEventListener("touchstart", handleOutsideClick, true);
+      window.removeEventListener("popstate", handlePopState);
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>
