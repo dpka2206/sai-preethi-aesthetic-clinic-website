@@ -162,7 +162,6 @@
 
 /* --- WhatsApp Pulse Ripple --- */
 .whatsapp-pulse {
-  position: relative;
 }
 .whatsapp-pulse::before {
   content: "";
