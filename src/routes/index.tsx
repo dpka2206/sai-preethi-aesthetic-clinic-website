@@ -83,8 +83,8 @@ function Nav() {
     >
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
         <a href="#top" className="flex flex-col leading-tight" aria-label="Home">
-          <span className="font-serif text-xl text-foreground">Dr. Sai Preethi</span>
-          <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">
+          <span className="font-serif text-xl font-bold tracking-tight text-foreground">Dr. Sai Preethi</span>
+          <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">
             Skin & Aesthetic Clinic
           </span>
         </a>
@@ -186,27 +186,46 @@ function Hero() {
           </dl>
         </div>
 
-        {/* Sliced Image Grid Column */}
+        {/* Professional Image Frame Column */}
         <div className="relative mt-12 lg:col-span-6 lg:ml-auto reveal z-10 w-full max-w-md mx-auto lg:max-w-none">
-          <div className="relative mx-auto w-full aspect-[4/5] lg:h-[500px] lg:w-[420px]">
+          <div className="relative mx-auto w-full max-w-[450px]">
+            {/* Background decorative glow */}
+            <div className="absolute -inset-4 rounded-[2.5rem] bg-gradient-to-tr from-primary/10 via-primary/5 to-transparent blur-2xl -z-10" />
             
-            {/* The images masked via clip-path for perfectly aligned blocks */}
-            {/* Added drop-shadow to make the sliced blocks pop beautifully */}
-            <div className="absolute inset-0 w-full h-full pointer-events-none drop-shadow-2xl">
-              {/* Left Column Blocks - Floating Drift Group 1 */}
-              <img src={heroImg} className="absolute inset-0 w-full h-full object-cover animate-float-1" style={{ clipPath: "inset(25.75% 68.67% 51.5% 0% round 16px)" }} />
-              <img src={heroImg} className="absolute inset-0 w-full h-full object-cover animate-float-1" style={{ clipPath: "inset(51.5% 68.67% 25.75% 0% round 16px)" }} />
-
-              {/* Center Column Blocks - Floating Drift Group 2 */}
-              <img src={heroImg} className="absolute inset-0 w-full h-full object-cover animate-float-2" style={{ clipPath: "inset(0% 34.34% 51.5% 34.33% round 16px)" }} />
-              <img src={heroImg} className="absolute inset-0 w-full h-full object-cover animate-float-2" style={{ clipPath: "inset(51.5% 34.34% 25.75% 34.33% round 16px)" }} />
-              <img src={heroImg} className="absolute inset-0 w-full h-full object-cover animate-float-2" style={{ clipPath: "inset(77.25% 34.34% 0% 34.33% round 16px)" }} />
-
-              {/* Right Column Blocks - Floating Drift Group 3 */}
-              <img src={heroImg} className="absolute inset-0 w-full h-full object-cover animate-float-3" style={{ clipPath: "inset(25.75% 0% 25.75% 68.66% round 16px)" }} />
-              <img src={heroImg} className="absolute inset-0 w-full h-full object-cover animate-float-3" style={{ clipPath: "inset(77.25% 0% 0% 68.66% round 16px)" }} />
+            {/* Elegant double frame outline */}
+            <div className="absolute inset-0 border border-primary/20 rounded-[2rem] translate-x-4 translate-y-4 -z-10 transition-transform duration-700" />
+            
+            <div className="overflow-hidden rounded-[2rem] bg-card border border-border/80 shadow-2xl">
+              <img 
+                src={heroImg} 
+                alt="Dr. Sai Preethi - Lead Dermatologist" 
+                className="w-full aspect-[4/5] object-cover transition-transform duration-[2000ms] hover:scale-105" 
+              />
             </div>
             
+            {/* Overlapping Info Card */}
+            <div className="absolute -bottom-6 -left-6 md:-left-10 rounded-2xl border border-border bg-background/95 p-5 backdrop-blur-md shadow-xl max-w-[260px] animate-float-2">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                  <Star className="h-5 w-5 fill-primary" />
+                </div>
+                <div>
+                  <h4 className="font-serif text-sm font-semibold text-foreground">Dr. Sai Preethi, MD</h4>
+                  <p className="text-[11px] text-muted-foreground">Consultant Dermatologist & Surgeon</p>
+                </div>
+              </div>
+              <div className="mt-3 border-t border-border/60 pt-3 flex items-center justify-between text-[10px] uppercase tracking-wider text-muted-foreground">
+                <span>Sri Ramachandra Univ</span>
+                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+                <span>Chennai</span>
+              </div>
+            </div>
+
+            {/* Overlapping Tech Badge */}
+            <div className="absolute -top-6 -right-6 rounded-full border border-border bg-background/95 px-4 py-2.5 backdrop-blur-sm shadow-lg flex items-center gap-2">
+              <Sparkles className="h-4 w-4 text-primary animate-pulse" />
+              <span className="text-[11px] font-medium tracking-wide text-foreground">Advanced Laser Care</span>
+            </div>
           </div>
         </div>
       </div>
@@ -255,10 +274,10 @@ function SectionHead({ label, title, sub }: { label: string; title: string; sub?
 function Why() {
   const ref = useReveal();
   const items = [
-    { n: "01", Icon: Microscope, t: "Diagnosis-First Approach", d: "Every treatment plan starts with accurate diagnosis using dermoscopy, biopsy, and genetic testing." },
+    { n: "01", Icon: Microscope, t: "Diagnosis-First Approach", d: "Every treatment plan starts with accurate diagnosis using dermoscopy, biopsy, and genetic testing and more." },
     { n: "02", Icon: Syringe, t: "Advanced Treatment Access", d: "Biologics, exosome therapy, HIFU, fractional CO₂ lasers, JAK inhibitors, and more." },
-    { n: "03", Icon: Baby, t: "All Ages Welcome", d: "From newborns with skin conditions to adults seeking rejuvenation — specialised care at every life stage." },
-    { n: "04", Icon: MapPin, t: "Globally Trained", d: "Advanced dermatological care calibrated for Indian skin tones (Fitzpatrick IV–VI)." },
+    { n: "03", Icon: Baby, t: "Expert Care for Every Age", d: "From newborns with skin conditions to adults seeking skin rejuvenation — specialised care at every life stage." },
+    { n: "04", Icon: MapPin, t: "Globally Trained", d: "World-class dermatological care, tailored for Indian skin" },
   ];
 
   const Card = ({ item }: { item: typeof items[number] }) => {
@@ -395,7 +414,7 @@ function About() {
             Dr. Sai Preethi is a highly qualified dermatologist and a consultant at the prestigious Sri Ramachandra University. Her confident approach is the result of comprehensive exposure to complex dermatological medicine, a deep commitment to excellent patient care, and a strong orientation towards research — values she has imbibed from this renowned centre.
           </p>
           <div className="mt-7 flex flex-wrap gap-2">
-            {["MBBS", "MD (DVL)", "Dermatologist"].map((c) => (
+            {["MBBS", "MD (Dermatology)"].map((c) => (
               <span key={c} className="rounded-full border border-border bg-card px-4 py-1.5 text-xs font-medium text-foreground">
                 {c}
               </span>
@@ -510,6 +529,9 @@ const testimonials = [
   ["After years of struggling with melasma, I finally saw real results. Dr. Sai Preethi's approach was methodical and the laser treatments transformed my skin.", "Ananya R.", "Melasma Treatment"],
   ["My daughter has had eczema since infancy. The paediatric dermatology care here was thorough, gentle, and actually worked.", "Priya S.", "Paediatric Eczema"],
   ["The hair restoration treatments — GFC combined with scalp threads — gave me visible results by the 3rd session. Highly recommend.", "Karan M.", "Hair Restoration"],
+  ["I struggled with severe cystic acne for years. Dr. Sai Preethi's customized chemical peels and medical treatment cleared my skin completely.", "Rohan K.", "Acne Treatment"],
+  ["The chronic hives were unbearable and interfered with my work. The biological treatments and thorough diagnostic approach here finally brought me relief.", "Sneha J.", "Chronic Urticaria"],
+  ["Living with moderate-to-severe psoriasis was a constant challenge. The advanced biologic therapy prescribed by the doctor transformed my skin and quality of life.", "Vikram S.", "Psoriasis Management"],
 ];
 function Testimonials() {
   const ref = useReveal();
@@ -521,16 +543,16 @@ function Testimonials() {
           {testimonials.map(([q, n, c], i) => (
             <figure
               key={n}
-              className="reveal rounded-xl border border-border bg-card p-7 soft-shadow"
+              className="reveal flex flex-col h-full rounded-xl border border-border bg-card p-7 soft-shadow"
               style={{ animationDelay: `${i * 100}ms` }}
             >
               <div className="flex gap-1 text-primary">
                 {[0,1,2,3,4].map((s) => <Star key={s} size={14} fill="currentColor" strokeWidth={0} />)}
               </div>
-              <blockquote className="mt-4 font-serif text-lg leading-relaxed text-foreground">
+              <blockquote className="mt-4 flex-1 font-serif text-lg leading-relaxed text-foreground">
                 "{q}"
               </blockquote>
-              <figcaption className="mt-5 border-t border-border pt-4 text-sm">
+              <figcaption className="mt-5 border-t border-border pt-4 text-sm mt-auto">
                 <span className="text-foreground font-medium">{n}</span>
                 <span className="text-muted-foreground"> — {c}</span>
               </figcaption>
@@ -620,7 +642,7 @@ function ContactCTA() {
         <div className="mt-10 flex flex-wrap justify-center gap-3 text-sm text-white">
           <span className="flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 backdrop-blur"><MapPin size={14}/> Chennai, Tamil Nadu</span>
           <span className="flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 backdrop-blur"><Phone size={14}/> +91 00000 00000</span>
-          <span className="flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 backdrop-blur"><Mail size={14}/> hello@drsaipreethi.com</span>
+          <span className="flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 backdrop-blur"><Mail size={14}/> saipreethiclinic@gmail.com</span>
         </div>
       </div>
     </section>
@@ -631,10 +653,10 @@ function ContactCTA() {
 function Footer() {
   return (
     <footer className="border-t border-border bg-cream px-6 py-16 lg:px-10">
-      <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-2 lg:grid-cols-3">
         <div>
-          <p className="font-serif text-2xl text-foreground">Dr. Sai Preethi</p>
-          <p className="mt-1 text-xs uppercase tracking-[0.22em] text-muted-foreground">Skin & Aesthetic Clinic</p>
+          <p className="font-serif text-2xl font-bold text-foreground">Dr. Sai Preethi</p>
+          <p className="mt-1 text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">Skin & Aesthetic Clinic</p>
           <p className="mt-5 max-w-xs text-sm text-muted-foreground">
             Expert dermatology & aesthetic care. Diagnosis-first, evidence-based, beautifully delivered.
           </p>
@@ -653,17 +675,11 @@ function Footer() {
           </ul>
         </div>
         <div>
-          <p className="font-serif text-sm uppercase tracking-wider text-foreground">Conditions Treated</p>
-          <ul className="mt-5 space-y-2.5 text-sm text-muted-foreground">
-            {conditions.slice(0, 8).map((c) => <li key={c}><a href="#" className="hover:text-primary">{c}</a></li>)}
-          </ul>
-        </div>
-        <div>
           <p className="font-serif text-sm uppercase tracking-wider text-foreground">Contact</p>
           <ul className="mt-5 space-y-2.5 text-sm text-muted-foreground">
             <li className="flex items-start gap-2"><MapPin size={14} className="mt-0.5"/> Chennai, Tamil Nadu, India</li>
             <li className="flex items-start gap-2"><Phone size={14} className="mt-0.5"/> +91 00000 00000</li>
-            <li className="flex items-start gap-2"><Mail size={14} className="mt-0.5"/> hello@drsaipreethi.com</li>
+            <li className="flex items-start gap-2"><Mail size={14} className="mt-0.5"/> saipreethiclinic@gmail.com</li>
           </ul>
           <div className="mt-4 aspect-[16/10] w-full overflow-hidden rounded-xl border border-border/40 bg-white p-3 flex items-center justify-center soft-shadow" aria-hidden>
             <img src="/images/logo.png" alt="Dr. Sai Preethi's Skin and Aesthetic Clinic Logo" className="h-full w-full object-contain" />

@@ -20,7 +20,7 @@ export const services: ServiceData[] = [
   {
     id: "paediatric-dermatology",
     name: "Paediatric Dermatology",
-    shortDescription: "Expert skin care for children, from newborns to teens. We manage conditions like eczema and birthmarks with a thorough, gentle approach.",
+    shortDescription: "Expert skin care for children, from newborns to teens. We manage conditions like Eczema and birthmark with thorough diagnostic approach",
     image: "/images/services/paediatric_derm_1778608429120.png",
     pageHeadline: "Expert Skin Care for Children — From Newborns to Teens",
     subheading: "Because young skin deserves specialised attention",
@@ -395,4 +395,5 @@ export const conditions = [
   "Birthmarks","Skin Tags","Moles","Cysts","Lupus","Pemphigus","Lichen Planus","Paediatric Eczema",
   "Urticaria","Periorbital Darkening","Underarm Darkening","Body Pigmentation","Genetic Skin Disorders",
   "Scalp Disorders","PCOS-related Skin Issues","Ageing Skin","Sun Damage","Post-inflammatory Hyperpigmentation",
+  "Atopic Dermatitis","Face conturing","Pregnancy related skin conditions",
 ];

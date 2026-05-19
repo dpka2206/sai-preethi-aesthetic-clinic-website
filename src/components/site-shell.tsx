@@ -24,8 +24,8 @@ export function SiteNav() {
     <header className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${scrolled ? "bg-background/85 backdrop-blur-md soft-shadow" : "bg-background/70 backdrop-blur-sm"}`}>
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-10">
         <Link to="/" className="flex flex-col leading-tight">
-          <span className="font-serif text-xl text-foreground">Dr. Sai Preethi</span>
-          <span className="text-[10px] uppercase tracking-[0.22em] text-muted-foreground">Skin & Aesthetic Clinic</span>
+          <span className="font-serif text-xl font-bold tracking-tight text-foreground">Dr. Sai Preethi</span>
+          <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-muted-foreground">Skin & Aesthetic Clinic</span>
         </Link>
         <nav className="hidden items-center gap-9 md:flex">
           {links.map(([l, h]) =>
@@ -66,10 +66,10 @@ export function SiteNav() {
 export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-cream px-6 py-16 lg:px-10">
-      <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-2 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-7xl gap-12 md:grid-cols-2 lg:grid-cols-3">
         <div>
-          <p className="font-serif text-2xl text-foreground">Dr. Sai Preethi</p>
-          <p className="mt-1 text-xs uppercase tracking-[0.22em] text-muted-foreground">Skin & Aesthetic Clinic</p>
+          <p className="font-serif text-2xl font-bold text-foreground">Dr. Sai Preethi</p>
+          <p className="mt-1 text-xs font-semibold uppercase tracking-[0.22em] text-muted-foreground">Skin & Aesthetic Clinic</p>
           <p className="mt-5 max-w-xs text-sm text-muted-foreground">Expert dermatology & aesthetic care. Diagnosis-first, evidence-based, beautifully delivered.</p>
           <div className="mt-6 flex gap-3">
             {[Instagram, Facebook, MessageCircle].map((I, i) => (
@@ -84,17 +84,11 @@ export function SiteFooter() {
           </ul>
         </div>
         <div>
-          <p className="font-serif text-sm uppercase tracking-wider text-foreground">Conditions Treated</p>
-          <ul className="mt-5 space-y-2.5 text-sm text-muted-foreground">
-            {conditions.slice(0, 8).map((c) => <li key={c}>{c}</li>)}
-          </ul>
-        </div>
-        <div>
           <p className="font-serif text-sm uppercase tracking-wider text-foreground">Contact</p>
           <ul className="mt-5 space-y-2.5 text-sm text-muted-foreground">
             <li className="flex items-start gap-2"><MapPin size={14} className="mt-0.5"/> Chennai, Tamil Nadu, India</li>
             <li className="flex items-start gap-2"><Phone size={14} className="mt-0.5"/> +91 00000 00000</li>
-            <li className="flex items-start gap-2"><Mail size={14} className="mt-0.5"/> hello@drsaipreethi.com</li>
+            <li className="flex items-start gap-2"><Mail size={14} className="mt-0.5"/> saipreethiclinic@gmail.com</li>
           </ul>
           <div className="mt-4 aspect-[16/10] w-full overflow-hidden rounded-xl border border-border/40 bg-white p-3 flex items-center justify-center soft-shadow" aria-hidden>
             <img src="/images/logo.png" alt="Dr. Sai Preethi's Skin and Aesthetic Clinic Logo" className="h-full w-full object-contain" />
