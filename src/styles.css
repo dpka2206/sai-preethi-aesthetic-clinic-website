@@ -131,9 +131,9 @@
   0%, 100% { transform: translateY(0) scale(1); }
   50% { transform: translateY(-4px) scale(1.005); }
 }
-.animate-float-1 { animation: floatUp 7s ease-in-out infinite; }
-.animate-float-2 { animation: floatDown 8.5s ease-in-out infinite; }
-.animate-float-3 { animation: floatMid 10s ease-in-out infinite; }
+.animate-float-1 { animation: floatUp 7s ease-in-out infinite; will-change: transform; backface-visibility: hidden; }
+.animate-float-2 { animation: floatDown 8.5s ease-in-out infinite; will-change: transform; backface-visibility: hidden; }
+.animate-float-3 { animation: floatMid 10s ease-in-out infinite; will-change: transform; backface-visibility: hidden; }
 
 /* --- Ambient Glow for Premium Buttons --- */
 .btn-glow-transition {
@@ -171,6 +171,8 @@
   background-color: var(--primary);
   opacity: 0.5;
   z-index: -1;
+  will-change: transform, opacity;
+  backface-visibility: hidden;
   animation: ripplePulse 2.5s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 @keyframes ripplePulse {
@@ -199,9 +201,13 @@ details[open] + .faq-grid-transition {
 }
 .animate-mesh-1 {
   animation: meshDrift 20s ease-in-out infinite;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 .animate-mesh-2 {
   animation: meshDrift 26s ease-in-out infinite alternate;
+  will-change: transform;
+  backface-visibility: hidden;
 }
 
 /* --- Initial Opening Text Reveals --- */

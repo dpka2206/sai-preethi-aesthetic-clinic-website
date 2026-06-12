@@ -41,7 +41,12 @@ function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 30);
+    const onScroll = () => {
+      setScrolled((prev) => {
+        const isScrolled = window.scrollY > 30;
+        return prev !== isScrolled ? isScrolled : prev;
+      });
+    };
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
@@ -120,34 +125,42 @@ function Hero() {
   const [activeMobilePanel, setActiveMobilePanel] = useState<number | null>(0);
 
   useEffect(() => {
+    let animationFrameId: number;
     const handleScroll = () => {
-      if (window.innerWidth >= 1024) return;
-      
-      const cards = document.querySelectorAll(".mobile-accordion-card");
-      let closestCardIndex = null;
-      let closestDistance = Infinity;
-      const viewportCenter = window.innerHeight / 2;
+      animationFrameId = requestAnimationFrame(() => {
+        if (window.innerWidth >= 1024) return;
+        
+        const cards = document.querySelectorAll(".mobile-accordion-card");
+        if (cards.length === 0) return;
+        
+        let closestCardIndex: number | null = null;
+        let closestDistance = Infinity;
+        const viewportCenter = window.innerHeight / 2;
 
-      cards.forEach((card, index) => {
-        const rect = card.getBoundingClientRect();
-        const cardCenter = rect.top + rect.height / 2;
-        const distance = Math.abs(cardCenter - viewportCenter);
+        cards.forEach((card, index) => {
+          const rect = card.getBoundingClientRect();
+          const cardCenter = rect.top + rect.height / 2;
+          const distance = Math.abs(cardCenter - viewportCenter);
 
-        if (distance < closestDistance) {
-          closestDistance = distance;
-          closestCardIndex = index;
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestCardIndex = index;
+          }
+        });
+
+        if (closestCardIndex !== null && closestDistance < window.innerHeight * 0.35) {
+          setActiveMobilePanel((prev) => prev !== closestCardIndex ? closestCardIndex : prev);
         }
       });
-
-      if (closestCardIndex !== null && closestDistance < window.innerHeight * 0.35) {
-        setActiveMobilePanel(closestCardIndex);
-      }
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      cancelAnimationFrame(animationFrameId);
+    };
   }, []);
 
   const panels = [
@@ -518,7 +531,7 @@ function About() {
       <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2 lg:gap-20">
         <div className="reveal relative">
           <div className="overflow-hidden rounded-2xl editorial-shadow">
-            <img src="/images/about/doctor.jpg" alt="Dr. Sai Preethi in clinic" fetchPriority="high" className="aspect-[4/5] w-full object-cover object-[center_top]" />
+            <img src="/images/about/doctor.jpg" alt="Dr. Sai Preethi in clinic" fetchPriority="high" decoding="async" className="aspect-[4/5] w-full object-cover object-[center_top]" />
           </div>
         </div>
         <div className="reveal">
