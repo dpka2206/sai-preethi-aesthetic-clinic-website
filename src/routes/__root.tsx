@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import {
   Outlet,
@@ -74,16 +74,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Dr. Sai Preethi's Skin & Aesthetic Clinic | Best Dermatologist in Chennai" },
+      { title: "Dr. Sai Preethi | Best Dermatologist in Chennai" },
       { name: "description", content: "Expert dermatology and aesthetic treatments in Chennai. Specialising in acne, hair loss, pigmentation, anti-ageing, paediatric dermatology, biologics, and advanced lasers. Book your consultation today." },
       { name: "keywords", content: "best dermatologist in Chennai, skin clinic Chennai, acne treatment Chennai, hair loss treatment Chennai, laser skin treatment Chennai, aesthetic clinic Chennai, paediatric dermatologist Chennai, vitiligo treatment Chennai, psoriasis treatment Chennai, melasma treatment Chennai" },
       { name: "author", content: "Dr. Sai Preethi" },
-      { property: "og:title", content: "Dr. Sai Preethi's Skin & Aesthetic Clinic | Best Dermatologist in Chennai" },
+      { property: "og:title", content: "Dr. Sai Preethi | Best Dermatologist in Chennai" },
       { property: "og:description", content: "Expert dermatology and aesthetic treatments in Chennai. Specialising in acne, hair loss, pigmentation, anti-ageing, paediatric dermatology, biologics, and advanced lasers. Book your consultation today." },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://saipreethiclinic.com/" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Dr. Sai Preethi's Skin & Aesthetic Clinic | Best Dermatologist in Chennai" },
+      { name: "twitter:title", content: "Dr. Sai Preethi | Best Dermatologist in Chennai" },
       { name: "twitter:description", content: "Expert dermatology and aesthetic treatments in Chennai. Specialising in acne, hair loss, pigmentation, anti-ageing, paediatric dermatology, biologics, and advanced lasers. Book your consultation today." },
       { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/18e0a0be-fd60-4c13-8bd5-6a92970e783c/id-preview-1a5cd4f8--cb556556-cc9c-4cf5-b9b5-4b3c2c9ddd25.lovable.app-1778602690642.png" },
       { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/18e0a0be-fd60-4c13-8bd5-6a92970e783c/id-preview-1a5cd4f8--cb556556-cc9c-4cf5-b9b5-4b3c2c9ddd25.lovable.app-1778602690642.png" },
@@ -104,21 +104,36 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
-          "@type": "MedicalClinic",
+          "@type": ["MedicalClinic", "LocalBusiness"],
           "name": "Dr. Sai Preethi's Skin & Aesthetic Clinic",
           "url": "https://saipreethiclinic.com/",
+          "image": "https://saipreethiclinic.com/images/about/doctor.jpg",
+          "telephone": "+919094040018",
           "address": {
             "@type": "PostalAddress",
+            "streetAddress": "Chennai",
             "addressLocality": "Chennai",
             "addressRegion": "Tamil Nadu",
             "addressCountry": "IN"
           },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "13.0827",
+            "longitude": "80.2707"
+          },
+          "openingHours": "Mo,Tu,We,Th,Fr,Sa 10:00-20:00",
           "medicalSpecialty": [
             "Dermatology",
             "Cosmetic Dermatology",
             "Pediatric Dermatology"
           ],
-          "description": "Expert dermatology and aesthetic treatments in Chennai. Specialising in acne, hair loss, pigmentation, anti-ageing, paediatric dermatology, biologics, and advanced lasers."
+          "description": "Expert dermatology and aesthetic treatments in Chennai. Specialising in acne, hair loss, pigmentation, anti-ageing, paediatric dermatology, biologics, and advanced lasers.",
+          "priceRange": "$$",
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5.0",
+            "reviewCount": "6"
+          }
         })
       }
     ],
@@ -136,6 +151,9 @@ function RootShell({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
+        <a href="#top" className="sr-only focus:not-sr-only focus:absolute focus:z-[100] focus:p-4 focus:bg-primary focus:text-primary-foreground focus:top-0 focus:left-0">
+          Skip to main content
+        </a>
         {children}
         <Scripts />
       </body>
@@ -208,6 +226,53 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      <CookieConsent />
     </QueryClientProvider>
   );
 }
+
+function CookieConsent() {
+  const [show, setShow] = useState(false);
+
+  useEffect(() => {
+    const consent = localStorage.getItem("cookie_consent");
+    if (!consent) {
+      setShow(true);
+    }
+  }, []);
+
+  if (!show) return null;
+
+  return (
+    <div className="fixed bottom-0 inset-x-0 z-50 p-4 pb-24 md:pb-4 pointer-events-none flex justify-center">
+      <div className="bg-background/95 backdrop-blur border border-border shadow-2xl rounded-xl p-5 max-w-2xl w-full pointer-events-auto flex flex-col sm:flex-row gap-4 items-center justify-between">
+        <div className="text-sm text-muted-foreground flex-1">
+          <p className="font-medium text-foreground mb-1">We value your privacy</p>
+          We use cookies to enhance your browsing experience and analyze our traffic. 
+          By clicking "Accept All", you consent to our use of cookies.
+        </div>
+        <div className="flex gap-2 shrink-0 w-full sm:w-auto">
+          <button 
+            onClick={() => {
+              localStorage.setItem("cookie_consent", "declined");
+              setShow(false);
+            }}
+            className="flex-1 sm:flex-none px-4 py-2 text-sm font-medium border border-border rounded-md hover:bg-muted transition-colors"
+          >
+            Decline
+          </button>
+          <button 
+            onClick={() => {
+              localStorage.setItem("cookie_consent", "accepted");
+              setShow(false);
+            }}
+            className="flex-1 sm:flex-none px-4 py-2 text-sm font-medium bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+          >
+            Accept All
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+

@@ -395,5 +395,5 @@ export const conditions = [
   "Birthmarks","Skin Tags","Moles","Cysts","Lupus","Pemphigus","Lichen Planus","Paediatric Eczema",
   "Urticaria","Periorbital Darkening","Underarm Darkening","Body Pigmentation","Genetic Skin Disorders",
   "Scalp Disorders","PCOS-related Skin Issues","Ageing Skin","Sun Damage","Post-inflammatory Hyperpigmentation",
-  "Atopic Dermatitis","Face conturing","Pregnancy related skin conditions",
+  "Atopic Dermatitis","Face contouring","Pregnancy related skin conditions",
 ];

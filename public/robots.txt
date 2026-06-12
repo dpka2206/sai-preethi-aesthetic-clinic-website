@@ -13,3 +13,5 @@ Allow: /
 
 User-agent: PerplexityBot
 Allow: /
+
+Sitemap: https://saipreethiclinic.com/sitemap.xml

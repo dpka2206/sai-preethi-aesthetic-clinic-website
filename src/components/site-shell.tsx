@@ -16,6 +16,7 @@ export function SiteNav() {
     ["Services", "/services"],
     ["About", "/#about"],
     ["Treatments", "/#treatments"],
+    ["Gallery", "/gallery"],
     ["Articles", "/articles"],
     ["FAQs", "/#faq"],
     ["Contact", "/#contact"],
@@ -80,22 +81,20 @@ export function SiteFooter() {
           </div>
           <p className="max-w-xs text-sm text-muted-foreground">Expert dermatology & aesthetic care. Diagnosis-first, evidence-based, beautifully delivered.</p>
           <div className="mt-6 flex gap-3">
-            {[Instagram, Facebook, MessageCircle].map((I, i) => (
-              <a key={i} href="#" aria-label="social" className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground hover:bg-primary hover:text-primary-foreground"><I size={15} /></a>
-            ))}
+            <a href="https://www.instagram.com/drsaipreethi_skinclinic?igsh=em1ldGE5dXZhZ3d1" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-foreground hover:bg-primary hover:text-primary-foreground"><Instagram size={15} /></a>
           </div>
         </div>
         <div>
           <p className="font-serif text-sm uppercase tracking-wider text-foreground">Services</p>
           <ul className="mt-5 space-y-2.5 text-sm text-muted-foreground">
-            {services.map((s) => <li key={s.id}><Link to="/services" className="hover:text-primary">{s.name}</Link></li>)}
+            {services.map((s) => <li key={s.id}><Link to={"/services#" + s.id} className="hover:text-primary">{s.name}</Link></li>)}
           </ul>
         </div>
         <div>
           <p className="font-serif text-sm uppercase tracking-wider text-foreground">Contact</p>
           <ul className="mt-5 space-y-2.5 text-sm text-muted-foreground">
             <li className="flex items-start gap-2"><MapPin size={14} className="mt-0.5"/> Chennai, Tamil Nadu, India</li>
-            <li className="flex items-start gap-2"><Phone size={14} className="mt-0.5"/> +91 00000 00000</li>
+            <li className="flex items-start gap-2"><Phone size={14} className="mt-0.5"/> +91 90940 40018</li>
             <li className="flex items-start gap-2"><Mail size={14} className="mt-0.5"/> saipreethiclinic@gmail.com</li>
           </ul>
           <div className="mt-4 aspect-[16/10] w-full overflow-hidden rounded-xl border border-border/40 bg-white p-3 flex items-center justify-center soft-shadow" aria-hidden>
@@ -107,8 +106,8 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="mx-auto mt-12 flex max-w-7xl flex-wrap items-center justify-between gap-3 border-t border-border pt-6 text-xs text-muted-foreground">
-        <p>© Dr. Sai Preethi's Skin & Aesthetic Clinic | Powered by <a href="https://editcomedia.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Editcomedia</a></p>
-        <div className="flex gap-5"><a href="#" className="hover:text-primary">Privacy</a><a href="#" className="hover:text-primary">Terms</a></div>
+        <p>© {new Date().getFullYear()} Dr. Sai Preethi's Skin & Aesthetic Clinic | Powered by <a href="https://editcomedia.com" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Editcomedia</a></p>
+        <div className="flex gap-5"><Link to="/privacy" className="hover:text-primary">Privacy</Link><Link to="/terms" className="hover:text-primary">Terms</Link></div>
       </div>
     </footer>
   );
@@ -116,7 +115,7 @@ export function SiteFooter() {
 
 export function WhatsAppFab() {
   return (
-    <a href="https://wa.me/910000000000" aria-label="WhatsApp" target="_blank" rel="noopener" className="whatsapp-pulse fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition hover:scale-105 hover:bg-primary/95">
+    <a href="https://wa.me/919094040018" aria-label="WhatsApp" title="Chat on WhatsApp" target="_blank" rel="noopener noreferrer" className="whatsapp-pulse fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition hover:scale-105 hover:bg-primary/95">
       <MessageCircle size={24} />
     </a>
   );

@@ -10,28 +10,6 @@ import { BookConsultation } from "@/components/book-consultation";
 import { services, conditions } from "@/lib/clinic-data";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": ["LocalBusiness", "MedicalBusiness"],
-          name: "Dr. Sai Preethi's Skin & Aesthetic Clinic",
-          description:
-            "Expert dermatology and aesthetic treatments in Chennai — acne, hair loss, pigmentation, anti-ageing, paediatric dermatology, biologics, and advanced lasers.",
-          medicalSpecialty: "Dermatology",
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: "Chennai",
-            addressRegion: "Tamil Nadu",
-            addressCountry: "IN",
-          },
-          priceRange: "$$",
-        }),
-      },
-    ],
-  }),
   component: HomePage,
 });
 
@@ -71,6 +49,7 @@ function Nav() {
     ["Services", "/services"],
     ["About", "#about"],
     ["Treatments", "#treatments"],
+    ["Gallery", "/gallery"],
     ["Articles", "/articles"],
     ["FAQs", "#faq"],
     ["Contact", "#contact"],
@@ -188,7 +167,7 @@ function Hero() {
       img: "/images/services/aesthetic_treatment_laser.png",
       imgClass: "object-cover",
       overlayColor: "from-black/90 via-black/50 to-black/10",
-      servicesList: ["PRP & GFC Hair Growth", "Botulinum Toxin & Fillers", "Fractional CO₂ Laser Resurfacing", "Face Conturing Procedures"]
+      servicesList: ["PRP & GFC Hair Growth", "Botulinum Toxin & Fillers", "Fractional CO₂ Laser Resurfacing", "Face Contouring Procedures"]
     },
     {
       id: "paediatric",
@@ -290,9 +269,9 @@ function Hero() {
 
               {/* Bottom Row: Text content */}
               <div className="text-white relative z-10">
-                <h3 className="font-serif text-xl md:text-2xl font-medium tracking-tight text-white mb-2">
+                <h2 className="font-serif text-xl md:text-2xl font-medium tracking-tight text-white mb-2">
                   {p.title}
-                </h3>
+                </h2>
                 
                 <p className={`text-[11px] md:text-xs text-white/75 leading-relaxed max-w-md transition-all duration-500 ${
                   isCurrent || hoveredPanel === null ? 'opacity-100 max-h-16' : 'opacity-0 max-h-0 overflow-hidden'
@@ -343,7 +322,7 @@ function Hero() {
                 {/* Header info */}
                 <div>
                   <div className="h-1" />
-                  <h3 className="font-serif text-lg font-semibold text-white">{p.title}</h3>
+                  <h2 className="font-serif text-lg font-semibold text-white">{p.title}</h2>
                 </div>
 
                 {/* Subtitle / Services list */}
@@ -352,16 +331,14 @@ function Hero() {
                     {p.subtitle}
                   </p>
                   
-                  {isMobileActive && (
-                    <ul className="mt-3 grid grid-cols-1 gap-1.5 border-t border-white/20 pt-2.5">
-                      {p.servicesList.map((item) => (
-                        <li key={item} className="flex items-center gap-1.5 text-[11px] text-white/95">
-                          <Check size={10} className="text-primary shrink-0" />
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+                  <ul className={`mt-3 grid grid-cols-1 gap-1.5 border-t border-white/20 pt-2.5 transition-all duration-500 overflow-hidden ${isMobileActive ? 'opacity-100 max-h-[120px]' : 'opacity-0 max-h-0 border-transparent pt-0 mt-0'}`}>
+                    {p.servicesList.map((item) => (
+                      <li key={item} className="flex items-center gap-1.5 text-[11px] text-white/95">
+                        <Check size={10} className="text-primary shrink-0" />
+                        <span>{item}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
               </div>
             </div>
@@ -445,7 +422,7 @@ function Why() {
             <div className="reveal">
               <p className="text-xs uppercase tracking-[0.25em] text-primary">Why patients trust us</p>
               <h2 className="mt-5 font-serif text-5xl leading-tight text-foreground md:text-7xl">
-                Why<br />choose us?
+                Why <br /> choose us?
               </h2>
               <p className="mt-6 max-w-md text-lg text-muted-foreground">
                 We combine advanced medical expertise with a deeply personalised, diagnosis-first approach to provide you with the finest dermatological care.
@@ -541,7 +518,7 @@ function About() {
       <div className="mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2 lg:gap-20">
         <div className="reveal relative">
           <div className="overflow-hidden rounded-2xl editorial-shadow">
-            <img src="/images/about/doctor.jpg" alt="Dr. Sai Preethi in clinic" loading="lazy" className="aspect-[4/5] w-full object-cover" />
+            <img src="/images/about/doctor.jpg" alt="Dr. Sai Preethi in clinic" fetchPriority="high" className="aspect-[4/5] w-full object-cover object-[center_top]" />
           </div>
         </div>
         <div className="reveal">
@@ -664,6 +641,35 @@ function Conditions() {
   );
 }
 
+/* ---------- Clinic Gallery Preview ---------- */
+function ClinicGalleryPreview() {
+  const ref = useReveal();
+  const images = Array.from({ length: 6 }, (_, i) => `/images/clinic/facility_${i + 1}.jpg`);
+
+  return (
+    <section ref={ref} className="px-6 py-24 lg:px-10 lg:py-32 bg-background">
+      <div className="mx-auto max-w-7xl">
+        <SectionHead label="Our Space" title="The Clinic Experience" sub="A state-of-the-art facility designed for your comfort and care." />
+        <div className="mt-14 grid grid-cols-2 md:grid-cols-3 gap-4">
+          {images.map((src, i) => (
+            <div key={i} className="reveal overflow-hidden rounded-2xl aspect-[4/3] bg-muted border border-border/50" style={{ animationDelay: `${i * 100}ms` }}>
+              <img src={src} alt={`Clinic space ${i + 1}`} loading="lazy" className="w-full h-full object-cover transition-transform duration-700 hover:scale-105" />
+            </div>
+          ))}
+        </div>
+        <div className="mt-12 flex justify-center reveal">
+          <Link
+            to="/gallery"
+            className="inline-flex items-center gap-2 rounded-md border border-foreground/20 px-7 py-3.5 text-sm font-medium text-foreground transition hover:border-foreground hover:bg-foreground hover:text-background"
+          >
+            View Full Gallery <ArrowRight size={15} />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ---------- Testimonials ---------- */
 const testimonials = [
   ["After years of struggling with melasma, I finally saw real results. Dr. Sai Preethi's approach was methodical and the laser treatments transformed my skin.", "Ananya R.", "Melasma Treatment"],
@@ -775,13 +781,13 @@ function ContactCTA() {
           <BookConsultation className="btn-glow-transition rounded-md bg-white px-7 py-3.5 text-sm font-medium text-foreground">
             Book Consultation
           </BookConsultation>
-          <a href="tel:+910000000000" className="rounded-md border border-white/70 px-7 py-3.5 text-sm font-medium text-white transition hover:bg-white/10">
+          <a href="tel:+919094040018" className="rounded-md border border-white/70 px-7 py-3.5 text-sm font-medium text-white transition hover:bg-white/10">
             Call Us
           </a>
         </div>
         <div className="mt-10 flex flex-wrap justify-center gap-3 text-sm text-white">
           <span className="flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 backdrop-blur"><MapPin size={14}/> Chennai, Tamil Nadu</span>
-          <span className="flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 backdrop-blur"><Phone size={14}/> +91 00000 00000</span>
+          <span className="flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 backdrop-blur"><Phone size={14}/> +91 90940 40018</span>
           <span className="flex items-center gap-2 rounded-full bg-white/15 px-4 py-2 backdrop-blur"><Mail size={14}/> saipreethiclinic@gmail.com</span>
         </div>
       </div>
@@ -823,7 +829,7 @@ function Footer() {
           <p className="font-serif text-sm uppercase tracking-wider text-foreground">Contact</p>
           <ul className="mt-5 space-y-2.5 text-sm text-muted-foreground">
             <li className="flex items-start gap-2"><MapPin size={14} className="mt-0.5"/> Chennai, Tamil Nadu, India</li>
-            <li className="flex items-start gap-2"><Phone size={14} className="mt-0.5"/> +91 00000 00000</li>
+            <li className="flex items-start gap-2"><Phone size={14} className="mt-0.5"/> +91 90940 40018</li>
             <li className="flex items-start gap-2"><Mail size={14} className="mt-0.5"/> saipreethiclinic@gmail.com</li>
           </ul>
           <div className="mt-4 aspect-[16/10] w-full overflow-hidden rounded-xl border border-border/40 bg-white p-3 flex items-center justify-center soft-shadow" aria-hidden>
@@ -849,11 +855,12 @@ function Footer() {
 function WhatsAppFab() {
   return (
     <a
-      href="https://wa.me/910000000000"
+      href="https://wa.me/919094040018"
       aria-label="Chat on WhatsApp"
+      title="Chat on WhatsApp"
       className="whatsapp-pulse fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition hover:scale-105 hover:bg-primary/95"
       target="_blank"
-      rel="noopener"
+      rel="noopener noreferrer"
     >
       <MessageCircle size={24} />
     </a>
@@ -872,6 +879,7 @@ function HomePage() {
         <About />
         <Treatments />
         <Conditions />
+        <ClinicGalleryPreview />
         <Testimonials />
         <FAQ />
         <ContactCTA />
